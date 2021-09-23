@@ -8,12 +8,12 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/main.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/font-awesome/4.7.0/css/font-awesome.min.css') }}"/>
 </head>
-<body class="app sidebar-mini rtl">
-    @include('admin.includes.header')
-    @include('admin.includes.sidebar')
-    <main class="app-content">
-        @yield('content')
-    </main>
+<body>
+    <section class="material-half-bg">
+      <div class="cover"></div>
+    </section>
+    @yield('content')
+    @include('admin.layouts.partials.footer')
     <script src="{{ asset('backend/js/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('backend/js/popper.min.js') }}"></script>
     <script src="{{ asset('backend/js/bootstrap.min.js') }}"></script>

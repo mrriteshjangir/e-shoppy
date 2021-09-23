@@ -1,4 +1,4 @@
-@extends('admin.app')
+@extends('admin.layouts.layout')
 @section('title') Dashboard @endsection
 @section('content')
     <div class="app-title">
@@ -44,4 +44,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('abc')
+    <h2>This is my second template</h2>
 @endsection
