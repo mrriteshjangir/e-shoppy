@@ -1,41 +1,28 @@
 <?php
 
-return [
-
-    'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
-    ],
-
-    'guards' => [
+return ['guards' => [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
-    ],
-    
-    // For admin
 
-    'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'admins',
-    ],
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'users',
+            'hash' => false,
+        ],
 
-    'guards' => [
-        'web' => [
+        'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
         ],
-    ],
 
-    // for token setting
-
-    'admin-api'=>[
-        'driver'=>'token',
-        'provider'=>'admins',
-        'hash'=> false,
+        'admin-api' => [
+            'driver' => 'token',
+            'provider' => 'admins',
+            'hash' => false,
+        ],
     ],
-    
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
@@ -46,26 +33,19 @@ return [
             'model' => App\Models\Admin::class,
         ],
     ],
-
     'passwords' => [
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
-            'throttle' => 60,
         ],
         'admins' => [
-            'provider' => 'admins',
+            'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
-            'throttle' => 60,
         ],
     ],
 
     'password_timeout' => 10800,
-
-
-    
-
 
 ];
