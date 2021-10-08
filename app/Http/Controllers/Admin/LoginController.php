@@ -3,23 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Closure;
-use Illuminate\Auth\Authenticatable as Auth;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Hash;
+
+use App\Models\Admin;
 
 class LoginController extends Controller
 {
-    use AuthenticatesUsers;
-    use Auth;
-
-    // Redirect to dashboard whenevr needed
-
-    protected $redirectTo ='/admin';
 
     public function __construct()
     {
@@ -36,18 +26,43 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $this->validate($request,[
-            'email'=> 'required|email',
-            'password'=> 'required|min:6|max:15'
-        ]);
+        // $this->validate($request,[
+        //     'email'=> 'required|email',
+        //     'password'=> 'required|min:5|max:15'
+        // ]);
 
-        if(Auth::guard('admin')->attempt([
-            'email'=>$request->email,
-            'password'=>$request->password
-        ],$request->get('remember'))){
-            return redirect()->intended(route('/admin'));
-        }
+        // if(Auth::guard('admin')->attempt([
+        //     'email'=>$request->email,
+        //     'password'=>$request->password
+        // ],$request->get('remember'))){
+        //     return redirect()->intended(route('/admin'));
+        // }
         
+        $email=$request->post('email');
+        $password=$request->post('password');
+
+        $result=Admin::Where(['email'=>$email])->first();
+        if($result)
+        {
+            if(Hash::check($request->post('password'),$result->password))
+            {
+                $request->session()->flash('error','logged in');
+                $request->session()->put('ADMIN_LOGGED',true);
+                $request->session()->put('ADMIN_ID',$result->id);
+
+                return redirect('/admin');
+            }
+            else
+            {
+                $request->session()->flash('error','Password is incorrect'); 
+            }
+        }
+        else
+        {
+            $request->session()->flash('error','This email is not registred with us');
+        }
+
+
         return back()->withInput($request->only('email','remember'));
     }
 
@@ -55,52 +70,39 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::guard('admin')->logout();
+        // Auth::guard('admin')->logout();
 
-        $request->session()->invalidate();
+        // $request->session()->invalidate();
 
-        return redirect()->route('admin.login');
+        // return redirect()->route('admin.login');
     }
 
 
 
-    public function handle($request,Closure $next,$guard=null)
+    public function handle($request,Closure $next)
     {
-        switch($guard)
-        {
-            case 'admin':
-                if(Auth::guard($guard)->check()){
-                    return redirect('/admin');
-                }
-                break;
-            default:
-                if(Auth::guard($guard)->check()){
-                    return redirect('/');
-                }
-                break;
-        }
-        return $next($request);
+        
     }
 
 
 
     protected function unauthenticated($request ,AuthenticationException $exception)
     {
-        if($request->excepctsJson()){
-            return response()->json(['Message'=>$exception->getMessage()],401);
-        }
+        // if($request->excepctsJson()){
+        //     return response()->json(['Message'=>$exception->getMessage()],401);
+        // }
 
-        $guard=Arr::get($exception->guards(),0);
+        // $guard=Arr::get($exception->guards(),0);
 
-        switch($guard){
-            case 'admin':
-                $login='admin.login';
-                break;
-            default:
-                $login='client.index';
-                break;
-        }
+        // switch($guard){
+        //     case 'admin':
+        //         $login='admin.login';
+        //         break;
+        //     default:
+        //         $login='client.index';
+        //         break;
+        // }
 
-        return redirect()->guest(route($login));
+        // return redirect()->guest(route($login));
     }
 }

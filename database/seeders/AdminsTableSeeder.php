@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Seeders;
-
+use Illuminate\Support\Facades\Hash;
 use App\Models\Admin;
 
 use Illuminate\Database\Seeder;
@@ -23,7 +23,7 @@ class AdminsTableSeeder extends Seeder
             'name'      =>  $faker->name,
             'email'     =>  'admin@admin.com',
             'mobile'    =>  '758123306',
-            'password'  =>  bcrypt('admin'),
+            'password'  =>  Hash::make('admin')
         ]);
     }
 }

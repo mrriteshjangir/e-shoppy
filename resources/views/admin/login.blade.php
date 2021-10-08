@@ -8,6 +8,14 @@
       <div class="login-box">
         <form class="login-form" action="{{route('admin.login.post')}}" method="POST" role="form">
           @csrf
+          @if(session('error'))
+          <div class="alert alert-dismissible alert-danger">
+                <button class="close" type="button" data-dismiss="alert">×</button>
+                <p>{{session('error')}}</a>.</p>
+          </div>
+          @endif
+
+
           <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
           <div class="form-group">
             <label class="control-label">USERNAME</label>
