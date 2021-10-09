@@ -8,9 +8,10 @@ use Illuminate\Support\Facades\Hash;
 
 use App\Models\Admin;
 
+use Cookie;
+
 class LoginController extends Controller
 {
-
     public function showLoginForm(Request $request){
         if($request->session()->has('ADMIN_LOGGED'))
         {
@@ -34,11 +35,15 @@ class LoginController extends Controller
         $result=Admin::Where(['email'=>$email])->first();
         if($result)
         {
-            if(Hash::check($request->post('password'),$result->password))
+            if(Hash::check($password,$result->password))
             {
                 $request->session()->flash('error','logged in');
                 $request->session()->put('ADMIN_LOGGED',true);
                 $request->session()->put('ADMIN_ID',$result->id);
+
+                if($request->post('remember')==1){
+                    Cookie::queue('ADMIN_ID', $result->id);
+                }
 
                 return redirect('/admin');
             }
@@ -60,7 +65,11 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        
+        $request->session()->forget('ADMIN_LOGGED');
+        $request->session()->forget('ADMIN_ID');
+
+        return redirect('/admin/login');
+    
     }
 
 }

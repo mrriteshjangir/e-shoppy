@@ -29,7 +29,7 @@
             <div class="utility">
               <div class="animated-checkbox">
                 <label>
-                  <input type="checkbox" name="remember"><span class="label-text">Stay Signed in</span>
+                  <input type="checkbox" name="remember" value="1" {{ old('remember')=="1" ? 'checked' : '' }}><span class="label-text">Stay Signed in</span>
                 </label>
               </div>
               <p class="semibold-text mb-2"><a href="#" data-toggle="flip">Forgot Password ?</a></p>
