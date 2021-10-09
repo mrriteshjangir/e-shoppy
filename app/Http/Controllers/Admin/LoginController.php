@@ -11,33 +11,23 @@ use App\Models\Admin;
 class LoginController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('guest:admin')->except('logout');
-    }
-
-
-
-    public function showLoginForm(){
-        return view('admin.login');
+    public function showLoginForm(Request $request){
+        if($request->session()->has('ADMIN_LOGGED'))
+        {
+            return redirect('/admin');
+        }
+        else
+        {
+            return view('admin.login');
+        }
     }
 
 
 
     public function login(Request $request)
     {
-        // $this->validate($request,[
-        //     'email'=> 'required|email',
-        //     'password'=> 'required|min:5|max:15'
-        // ]);
-
-        // if(Auth::guard('admin')->attempt([
-        //     'email'=>$request->email,
-        //     'password'=>$request->password
-        // ],$request->get('remember'))){
-        //     return redirect()->intended(route('/admin'));
-        // }
         
+
         $email=$request->post('email');
         $password=$request->post('password');
 
@@ -70,39 +60,7 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        // Auth::guard('admin')->logout();
-
-        // $request->session()->invalidate();
-
-        // return redirect()->route('admin.login');
-    }
-
-
-
-    public function handle($request,Closure $next)
-    {
         
     }
 
-
-
-    protected function unauthenticated($request ,AuthenticationException $exception)
-    {
-        // if($request->excepctsJson()){
-        //     return response()->json(['Message'=>$exception->getMessage()],401);
-        // }
-
-        // $guard=Arr::get($exception->guards(),0);
-
-        // switch($guard){
-        //     case 'admin':
-        //         $login='admin.login';
-        //         break;
-        //     default:
-        //         $login='client.index';
-        //         break;
-        // }
-
-        // return redirect()->guest(route($login));
-    }
 }

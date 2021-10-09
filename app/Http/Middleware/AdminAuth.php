@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class admin_auth
+class AdminAuth
 {
     /**
      * Handle an incoming request.
@@ -16,13 +16,10 @@ class admin_auth
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->session()->has('ADMIN_LOGGED')){
-            
-        }
-        else
+        if(!$request->session()->has('ADMIN_LOGGED'))
         {
-            $request->session()->flash('error','access denied');
-            return redirect('admin.login');
+            $request->session()->flash('error','Access Denied');
+            return redirect()->route('admin.login');
         }
         return $next($request);
     }

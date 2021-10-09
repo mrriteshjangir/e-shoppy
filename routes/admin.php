@@ -8,9 +8,9 @@
         Route::post('login',[LoginController::Class,'login'])->name('admin.login.post');
         Route::get('logout',[LoginController::Class,'logout'])->name('admin.logout');
 
-        //Route::group(['middleware'=>['auth:admin']],function(){
+        Route::group(['middleware'=>'admin_auth'],function(){
             Route::get('/',function(){
                 return view('admin.index');
             })->name('admin.index');
-        //});        
+        });        
     });
