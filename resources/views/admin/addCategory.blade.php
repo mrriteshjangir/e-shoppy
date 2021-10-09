@@ -1,9 +1,9 @@
 @extends('admin.layouts.layout')
-@section('title') Dashboard @endsection
+@section('title') Add Category @endsection
 @section('content')
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-dashboard"></i> Dashboard</h1>
+            <h1><i class="fa fa-bars"></i> Add Category</h1>
         </div>
     </div>
     <div class="row">

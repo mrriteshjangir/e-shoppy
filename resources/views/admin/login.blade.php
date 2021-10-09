@@ -1,21 +1,21 @@
 @extends('admin.layouts.auth')
-@section('title') Login @endsection
+@section('title') Admin Login @endsection
 @section('content')
 <section class="login-content">
       <div class="logo">
-        <h1>E-Shoppy</h1>
+        <h1>{{ config('constants.site_name') }}</h1>
       </div>
-      <div class="login-box">
-        <form class="login-form" action="{{route('admin.login.post')}}" method="POST" role="form">
-          @csrf
-          @if(session('error'))
+      @if(session('error'))
           <div class="alert alert-dismissible alert-danger">
                 <button class="close" type="button" data-dismiss="alert">×</button>
                 <p>{{session('error')}}</a>.</p>
           </div>
           @endif
-
-
+      <div class="login-box">
+        
+        <form class="login-form" action="{{route('admin.login.post')}}" method="POST" role="form">
+          @csrf
+          
           <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
           <div class="form-group">
             <label class="control-label">USERNAME</label>
@@ -29,7 +29,7 @@
             <div class="utility">
               <div class="animated-checkbox">
                 <label>
-                  <input type="checkbox" name="remember" value="1" {{ old('remember')=="1" ? 'checked' : '' }}><span class="label-text">Stay Signed in</span>
+                  <input type="checkbox" name="remember" value="1" {{old('remember')=='1'?"checked":''}}><span class="label-text">Stay Signed in</span>
                 </label>
               </div>
               <p class="semibold-text mb-2"><a href="#" data-toggle="flip">Forgot Password ?</a></p>
