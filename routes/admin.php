@@ -11,7 +11,9 @@
         Route::group(['middleware'=>'admin_auth'],function(){
             Route::get('logout',[LoginController::Class,'logout'])->name('admin.logout');
 
-            Route::get('addCategory',[CategoryController::Class,'index'])->name('admin.addCategory');
+            Route::get('addCategory',[CategoryController::Class,'showAddCategoryForm'])->name('admin.addCategory');
+            Route::post('addCategory',[CategoryController::Class,'addCategory'])->name('admin.addCategory.post');
+            Route::get('manageCategory',[CategoryController::Class,'manageCategory'])->name('admin.manageCategory');
             
             Route::get('/',function(){
                 return view('admin.index');

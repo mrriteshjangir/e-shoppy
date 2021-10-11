@@ -22,7 +22,7 @@
                     <a class="treeview-item" href="{{route('admin.addCategory')}}"><i class="icon fa fa-circle-o"></i>Add Category</a>
                 </li>
                 <li>
-                    <a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> Manage Category</a>
+                    <a class="treeview-item" href="{{route('admin.manageCategory')}}"><i class="icon fa fa-circle-o"></i> Manage Category</a>
                 </li>
                 <li>
                     <a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> Trashed Category</a>

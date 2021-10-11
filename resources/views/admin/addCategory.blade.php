@@ -1,47 +1,49 @@
 @extends('admin.layouts.layout')
 @section('title') Add Category @endsection
 @section('content')
-    <div class="app-title">
-        <div>
-            <h1><i class="fa fa-bars"></i> Add Category</h1>
-        </div>
+<div class="app-title">
+    <div>
+        <h1><i class="fa fa-plus mr-3"></i> Add Category</h1>
     </div>
-    <div class="row">
-        <div class="col-md-6 col-lg-3">
-            <div class="widget-small primary coloured-icon">
-                <i class="icon fa fa-users fa-3x"></i>
-                <div class="info">
-                    <h4>Users</h4>
-                    <p><b>5</b></p>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <form method="POST" action="{{route('admin.addCategory.post')}}">
+            <div class="tile">
+                <div class="tile-body">
+                        @csrf
+                        <div class="form-group">
+                            <label class="control-label">Category Title</label>
+                            <input class="form-control" type="text" name="category_title" placeholder="Enter category title">
+                        </div>
+                        @error('category_title')
+                            <p class="text-danger mt-2">{{$message}}</p>
+                        @enderror
+                        <div class="form-group">
+                            <label class="control-label">Category Slug</label>
+                            <input class="form-control" type="text"  name="category_slug" placeholder="Enter category slug">
+                        </div>
+                        @error('category_slug')
+                            <p class="text-danger mt-2">{{$message}}</p>
+                        @enderror
+                        <div class="form-group">
+                            <label class="control-label">Details</label>
+                            <textarea class="form-control" type="text"  name="category_details" rows="4" placeholder="Enter category details"></textarea>
+                        </div>
+                        @error('category_details')
+                            <p class="text-danger mt-2">{{$message}}</p>
+                        @enderror
+                </div>
+                <div class="tile-footer">
+                    <button class="btn btn-primary mr-3" type="submit">
+                        <i class="fa fa-fw fa-lg fa-check-circle"></i>Save
+                    </button>
+                    <button class="btn btn-secondary" type="reset">
+                        <i class="fa fa-fw fa-lg fa-times-circle"></i></i>Reset
+                    </button>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-            <div class="widget-small info coloured-icon">
-                <i class="icon fa fa-thumbs-o-up fa-3x"></i>
-                <div class="info">
-                    <h4>Likes</h4>
-                    <p><b>25</b></p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-            <div class="widget-small warning coloured-icon">
-                <i class="icon fa fa-files-o fa-3x"></i>
-                <div class="info">
-                    <h4>Uploades</h4>
-                    <p><b>10</b></p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-            <div class="widget-small danger coloured-icon">
-                <i class="icon fa fa-star fa-3x"></i>
-                <div class="info">
-                    <h4>Stars</h4>
-                    <p><b>500</b></p>
-                </div>
-            </div>
-        </div>
+        </form>
     </div>
+</div>
 @endsection
