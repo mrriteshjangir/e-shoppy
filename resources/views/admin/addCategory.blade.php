@@ -1,5 +1,6 @@
 @extends('admin.layouts.layout')
 @section('title') Add Category @endsection
+@section('active_category') active @endsection
 @section('content')
 <div class="app-title">
     <div>

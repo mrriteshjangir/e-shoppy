@@ -8,24 +8,24 @@
     </div>
     <ul class="app-menu">
         <li>
-            <a class="app-menu__item active" href="#"><i class="app-menu__icon fa fa-dashboard"></i>
+            <a class="app-menu__item @yield('dashboard_active')" href="{{url('/admin')}}"><i class="app-menu__icon fa fa-dashboard"></i>
                 <span class="app-menu__label">Dashboard</span>
             </a>
         </li>
         <li class="treeview">
-            <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-bars"></i>
+            <a class="app-menu__item @yield('active_category')" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-bars"></i>
                 <span class="app-menu__label">Category</span>
                 <i class="treeview-indicator fa fa-angle-right"></i>
             </a>
             <ul class="treeview-menu">
                 <li>
-                    <a class="treeview-item" href="{{route('admin.addCategory')}}"><i class="icon fa fa-circle-o"></i>Add Category</a>
+                    <a class="treeview-item" href="{{url('admin/category/add')}}"><i class="icon fa fa-circle-o"></i>Add Category</a>
                 </li>
                 <li>
-                    <a class="treeview-item" href="{{route('admin.manageCategory')}}"><i class="icon fa fa-circle-o"></i> Manage Category</a>
+                    <a class="treeview-item" href="{{url('admin/category/active')}}"><i class="icon fa fa-circle-o"></i> Manage Category</a>
                 </li>
                 <li>
-                    <a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> Trashed Category</a>
+                    <a class="treeview-item" href="{{url('admin/category/inactive')}}"><i class="icon fa fa-circle-o"></i> Trashed Category</a>
                 </li>
             </ul>
         </li>

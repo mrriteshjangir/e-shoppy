@@ -34,8 +34,12 @@ class CategoryController extends Controller
 
     }
 
-    public function manageCategory()
+    public function activeCategory()
     {
-        return view('admin.manageCategory');
+        return view('admin.activeCategory');
+    }
+    public function inactiveCategory()
+    {
+        return view('admin.inactiveCategory');
     }
 }

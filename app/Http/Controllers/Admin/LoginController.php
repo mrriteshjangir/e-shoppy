@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+use Illuminate\Foundation\Auth\Admin as Authenticatable;
+
 use App\Models\Admin;
 
 use Cookie;
@@ -26,10 +28,10 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        // $this->validate($request,[
-        //     'email'=> 'required|email',
-        //     'password'=> 'required|min:5|max:15'
-        // ]);
+        $this->validate($request,[
+            'email'=> 'required|email',
+            'password'=> 'required|min:5|max:15'
+        ]);
         
         $email=$request->post('email');
         $password=$request->post('password');

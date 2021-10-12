@@ -1,5 +1,6 @@
 @extends('admin.layouts.layout')
 @section('title') Dashboard @endsection
+@section('dashboard_active') active @endsection
 @section('content')
     <div class="app-title">
         <div>

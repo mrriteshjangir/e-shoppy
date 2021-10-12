@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Admin extends Authenticatable
+class Admin extends Model
 {
     use HasFactory;
 
@@ -20,7 +20,4 @@ class Admin extends Authenticatable
         'password','remember_token'
     ];
 
-    // protected $casts=[
-    //     'account_creation_date'=>'datetime'
-    // ];
 }
