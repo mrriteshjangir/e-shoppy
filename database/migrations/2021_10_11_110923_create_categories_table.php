@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->String('category_title');
             $table->String('category_slug')->unique();
             $table->String('category_details');
+            $table->Integer('category_status');
             $table->timestamps();
         });
     }

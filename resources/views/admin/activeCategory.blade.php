@@ -60,14 +60,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
+                                    @foreach($data as $list)
+                                    
                                         <tr role="row" class="odd">
-                                            <td class="sorting_1">1</td>
-                                            <td>Footwear</td>
-                                            <td>footwear</td>
-                                            <td>This is demo category</td>
+                                            <td class="sorting_1">{{$list->id}}</td>
+                                            <td>{{$list->category_title}}</td>
+                                            <td>{{$list->category_slug}}</td>
+                                            <td>{{$list->category_details}}</td>
                                             <td>
-                                                <a  class="text-decoration-none btn btn-warning">
+                                                <a href="{{url('admin/category/hide')}}/{{$list->id}}" class="text-decoration-none btn btn-warning">
                                                     <i class="fa fa-eye-slash"></i>
                                                 </a>
                                                 <a class="text-decoration-none btn btn-info ml-2">
@@ -75,20 +76,8 @@
                                                 </a>
                                             </td>
                                         </tr>
-                                        <tr role="row" class="even">
-                                            <td class="sorting_1">1</td>
-                                            <td>Electronics</td>
-                                            <td>Electronics</td>
-                                            <td>This is demo Electronics</td>
-                                            <td>
-                                                <a  class="text-decoration-none btn btn-warning">
-                                                    <i class="fa fa-eye-slash"></i>
-                                                </a>
-                                                <a class="text-decoration-none btn btn-info ml-2">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                        
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
