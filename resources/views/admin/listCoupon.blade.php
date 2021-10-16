@@ -1,10 +1,9 @@
 @extends('admin.layouts.layout')
-@section('title')Inactive Category @endsection
-@section('active_category') active @endsection
+@section('title') List Coupon @endsection
 @section('content')
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-list"></i> Inactive Category</h1>
+            <h1><i class="fa fa-list"></i> List Coupon</h1>
         </div>
     </div>
     @if(session('message'))
@@ -13,6 +12,7 @@
         <p>{{session('message')}}</a>.</p>
     </div>
     @endif
+    <a href="{{url('admin/coupon/add')}}" class="btn btn-info mb-3">Add Coupon</a>
     <div class="row">
         <div class="col-md-12">
             <div class="tile">
@@ -47,38 +47,51 @@
                                                 >#</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Position: activate to sort column ascending"
-                                                >Category Title</th>
+                                                >Coupon Title</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Office: activate to sort column ascending"
-                                                >Category Slug</th>
+                                                >Coupon Code</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Age: activate to sort column ascending"
-                                                >Category Details</th>
+                                                >Coupon Details</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Start date: activate to sort column ascending"
                                                >Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-
+                                    @php ($sr=1)
                                     @foreach($data as $list)
-                                    
-                                    <tr role="row" class="odd">
-                                        <td class="sorting_1">{{$list->id}}</td>
-                                        <td>{{$list->category_title}}</td>
-                                        <td>{{$list->category_slug}}</td>
-                                        <td>{{$list->category_details}}</td>
-                                        <td>
-                                            <a  href="{{url('admin/category/restore')}}/{{$list->id}}" class="text-decoration-none btn btn-warning">
-                                                <i class="fa fa-retweet"></i>
-                                            </a>
-                                            <a  href="{{url('admin/category/delete')}}/{{$list->id}}" class="text-decoration-none btn btn-danger ml-2">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    
-                                @endforeach
+                                        <tr role="row" class="odd">
+                                            <td class="sorting_1">{{$sr}}</td>
+                                            <td>{{$list->coupon_title}}</td>
+                                            <td>{{$list->coupon_code}}</td>
+                                            <td>{{$list->coupon_details}}</td>
+                                            <td>
+                                                @if($list->coupon_status==0)
+                                                <a  href="{{url('admin/coupon/show')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
+                                                data-toggle="tooltip" data-placement="top" title="Hide it.">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                                @else
+                                                <a href="{{url('admin/coupon/hide')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
+                                                data-toggle="tooltip" data-placement="top" title="Unhide it.">
+                                                    <i class="fa fa-eye-slash"></i>
+                                                </a>
+                                                @endif
+                                                <a href="{{url('admin/coupon/edit')}}/{{$list->id}}" class="text-decoration-none btn btn-info ml-2"
+                                                data-toggle="tooltip" data-placement="top" title="Edit it.">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                                
+                                                <a  href="{{url('admin/coupon/delete')}}/{{$list->id}}" class="text-decoration-none btn btn-danger ml-2"
+                                                data-toggle="tooltip" data-placement="top" title="Delete it.">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        @php ($sr++)
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>

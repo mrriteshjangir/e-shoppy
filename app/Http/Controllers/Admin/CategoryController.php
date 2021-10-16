@@ -9,42 +9,63 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
-    public function showAddCategoryForm(){
-        return view('admin.addCategory');
+    public function showForm($id=''){
+        if($id>0)
+        {
+            $arr=Category::where(['id'=>$id])->get();
+
+            $result['category_title']=$arr['0']->category_title;
+            $result['category_slug']=$arr['0']->category_slug;
+            $result['category_details']=$arr['0']->category_details;
+            $result['id']=$arr['0']->id;
+        }
+        else
+        {
+            $result['category_title']='';
+            $result['category_slug']='';
+            $result['category_details']='';
+            $result['id']=0;
+        }
+
+        return view('admin.manageCategory',$result);
     }
 
-    public function addCategory(Request $req){
+    public function manageCategory(Request $req){
         $req->validate([
             'category_title'=> 'required',
-            'category_slug'=>'required|unique:categories',
+            'category_slug'=>'required|unique:categories,category_slug,'.$req->post('id'),
             'category_details'=>'required',
         ]);
 
-        $model = new Category();
+        if($req->post('id')>0)
+        {
+            $model=Category::find($req->post('id'));
+            $msg='Category updated successfully';
+        }
+        else
+        {
+            $model = new Category();
+            $msg='Category added successfully';
+        }
 
         $model->category_title=$req->post('category_title');
         $model->category_slug=$req->post('category_slug');
         $model->category_details=$req->post('category_details');
-        $model->category_status=1;
 
         $model->save();
 
-        $req->session()->flash('message','Category added successfully');
+        $req->session()->flash('message',$msg);
 
-        return redirect('admin/category/active');
+        return redirect('admin/category/list');
 
+        return back()->withInput($request->only('category_title','category_slug','category_details'));
     }
 
-    public function activeCategory()
+    public function listCategory()
     {
-        $result['data']=Category::where(['category_status'=>1])->get();
-        return view('admin.activeCategory',$result);
-    }
+        $result['data']=Category::all();
 
-    public function inactiveCategory()
-    {
-        $result['data']=Category::where(['category_status'=>0])->get();
-        return view('admin.inactiveCategory',$result);
+        return view('admin.listCategory',$result);
     }
 
     public function deleteCategory(Request $req,$id){
@@ -53,19 +74,19 @@ class CategoryController extends Controller
         $model->delete();
         $req->session()->flash('message','Category deleted successfully');
 
-        return redirect('admin/category/inactive');
+        return redirect('admin/category/list');
     }
 
-    public function restoreCategory(Request $req,$id){
+    public function showCategory(Request $req,$id){
 
-        $model=Category::find($id);;
+        $model=Category::find($id);
         $model->category_status=1;
 
         $model->save();
 
-        $req->session()->flash('message','Category restored successfully');
+        $req->session()->flash('message','Category now visible');
 
-        return redirect('admin/category/active');
+        return redirect('admin/category/list');
     }
 
     public function hideCategory(Request $req,$id){
@@ -75,8 +96,8 @@ class CategoryController extends Controller
 
         $model->save();
 
-        $req->session()->flash('message','Category hided successfully');
+        $req->session()->flash('message','Category now hidden');
 
-        return redirect('admin/category/inactive');
+        return redirect('admin/category/list');
     }
 }

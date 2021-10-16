@@ -1,10 +1,9 @@
 @extends('admin.layouts.layout')
-@section('title')Active Category @endsection
-@section('active_category') active @endsection
+@section('title') List Category @endsection
 @section('content')
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-list"></i> Active Category</h1>
+            <h1><i class="fa fa-list"></i> List Category</h1>
         </div>
     </div>
     @if(session('message'))
@@ -13,6 +12,7 @@
         <p>{{session('message')}}</a>.</p>
     </div>
     @endif
+    <a href="{{url('admin/category/add')}}" class="btn btn-info mb-3">Add Category</a>
     <div class="row">
         <div class="col-md-12">
             <div class="tile">
@@ -60,23 +60,37 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    @php ($sr=1)
                                     @foreach($data as $list)
-                                    
                                         <tr role="row" class="odd">
-                                            <td class="sorting_1">{{$list->id}}</td>
+                                            <td class="sorting_1">{{$sr}}</td>
                                             <td>{{$list->category_title}}</td>
                                             <td>{{$list->category_slug}}</td>
                                             <td>{{$list->category_details}}</td>
                                             <td>
-                                                <a href="{{url('admin/category/hide')}}/{{$list->id}}" class="text-decoration-none btn btn-warning">
+                                                @if($list->category_status==0)
+                                                <a  href="{{url('admin/category/show')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
+                                                data-toggle="tooltip" data-placement="top" title="Hide it.">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                                @else
+                                                <a href="{{url('admin/category/hide')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
+                                                data-toggle="tooltip" data-placement="top" title="Unhide it.">
                                                     <i class="fa fa-eye-slash"></i>
                                                 </a>
-                                                <a class="text-decoration-none btn btn-info ml-2">
+                                                @endif
+                                                <a href="{{url('admin/category/edit')}}/{{$list->id}}" class="text-decoration-none btn btn-info ml-2"
+                                                data-toggle="tooltip" data-placement="top" title="Edit it.">
                                                     <i class="fa fa-pencil"></i>
+                                                </a>
+                                                
+                                                <a  href="{{url('admin/category/delete')}}/{{$list->id}}" class="text-decoration-none btn btn-danger ml-2"
+                                                data-toggle="tooltip" data-placement="top" title="Delete it.">
+                                                    <i class="fa fa-trash"></i>
                                                 </a>
                                             </td>
                                         </tr>
-                                        
+                                        @php ($sr++)
                                     @endforeach
                                     </tbody>
                                 </table>

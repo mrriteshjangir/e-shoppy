@@ -3,6 +3,7 @@
     
     use App\Http\Controllers\Admin\LoginController;
     use App\Http\Controllers\Admin\CategoryController;
+    use App\Http\Controllers\Admin\CouponController;
 
     Route::group(['prefix'=>'admin'],function(){
 
@@ -12,15 +13,27 @@
 
         Route::group(['middleware'=>'admin_auth'],function(){
             Route::get('logout',[LoginController::Class,'logout'])->name('admin.logout');
+
             // Category Routes Started
-            Route::get('category/add',[CategoryController::Class,'showAddCategoryForm'])->name('admin.addCategory');
-            Route::post('category/add',[CategoryController::Class,'addCategory'])->name('admin.addCategory.post');
-            Route::get('category/active',[CategoryController::Class,'activeCategory'])->name('admin.activeCategory');
-            Route::get('category/inactive',[CategoryController::Class,'inactiveCategory'])->name('admin.inactiveCategory');
+            Route::get('category/add',[CategoryController::Class,'showForm']);
+            Route::post('category/add',[CategoryController::Class,'manageCategory'])->name('admin.manageCategory.post');
+            Route::get('category/list',[CategoryController::Class,'listCategory']);
             Route::get('category/delete/{id}',[CategoryController::Class,'deleteCategory']);
-            Route::get('category/restore/{id}',[CategoryController::Class,'restoreCategory']);
+            Route::get('category/show/{id}',[CategoryController::Class,'showCategory']);
             Route::get('category/hide/{id}',[CategoryController::Class,'hideCategory']);
+            Route::get('category/edit/{id}',[CategoryController::Class,'showForm']);
             // Category Routes ended
+
+            // coupon Routes Started
+            Route::get('coupon/add',[CouponController::Class,'showForm']);
+            Route::post('coupon/add',[CouponController::Class,'manageCoupon'])->name('admin.manageCoupon.post');
+            Route::get('coupon/list',[CouponController::Class,'listCoupon']);
+            Route::get('coupon/delete/{id}',[CouponController::Class,'deleteCoupon']);
+            Route::get('coupon/show/{id}',[CouponController::Class,'showCoupon']);
+            Route::get('coupon/hide/{id}',[CouponController::Class,'hideCoupon']);
+            Route::get('coupon/edit/{id}',[CouponController::Class,'showForm']);
+            // coupon Routes ended
+
             Route::get('/',function(){
                 return view('admin.index');
             })->name('admin.index');

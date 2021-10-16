@@ -22,10 +22,21 @@
                     <a class="treeview-item" href="{{url('admin/category/add')}}"><i class="icon fa fa-circle-o"></i>Add Category</a>
                 </li>
                 <li>
-                    <a class="treeview-item" href="{{url('admin/category/active')}}"><i class="icon fa fa-circle-o"></i> Manage Category</a>
+                    <a class="treeview-item" href="{{url('admin/category/list')}}"><i class="icon fa fa-circle-o"></i> Manage Category</a>
+                </li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a class="app-menu__item @yield('active_coupon')" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-tag"></i>
+                <span class="app-menu__label">Coupon</span>
+                <i class="treeview-indicator fa fa-angle-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li>
+                    <a class="treeview-item" href="{{url('admin/coupon/add')}}"><i class="icon fa fa-circle-o"></i>Add Coupon</a>
                 </li>
                 <li>
-                    <a class="treeview-item" href="{{url('admin/category/inactive')}}"><i class="icon fa fa-circle-o"></i> Trashed Category</a>
+                    <a class="treeview-item" href="{{url('admin/coupon/list')}}"><i class="icon fa fa-circle-o"></i> Manage Coupon</a>
                 </li>
             </ul>
         </li>
