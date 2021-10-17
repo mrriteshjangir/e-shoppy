@@ -1,48 +1,48 @@
 @extends('admin.layouts.layout')
 @if($id>0)
-    @section('title') Edit Category @endsection
+    @section('title') Edit Product @endsection
 @else
-    @section('title') Add Category @endsection
+    @section('title') Add Product @endsection
 @endif
-@section('active_category') active @endsection
+@section('active_product') active @endsection
 @section('content')
 <div class="app-title">
     <div>
         <h1><i class="fa fa-plus mr-3"></i>
             @if($id>0)
-                Edit Category
+                Edit Product
             @else
-                Add Category
+                Add Product
             @endif
         </h1>
     </div>
 </div>
-<a href="{{url('admin/category/list')}}" class="btn btn-info mb-3">List Category</a>
+<a href="{{url('admin/product/list')}}" class="btn btn-info mb-3">List Product</a>
 <div class="row">
     <div class="col-md-12">
-        <form method="POST" action="{{url('admin/category/post')}}">
+        <form method="POST" action="{{url('admin/product/post')}}">
             <div class="tile">
                 <div class="tile-body">
                         @csrf
                         <div class="form-group">
-                            <label class="control-label">Category Title</label>
-                            <input class="form-control"  type="text" name="category_title" value="@if($category_title){{$category_title}}@else {{old('category_title')}}@endif" placeholder="Enter category title">
+                            <label class="control-label">Product Name</label>
+                            <input class="form-control"  type="text" name="product_name" value="@if($product_name){{$product_name}}@else {{old('product_name')}}@endif" placeholder="Enter product name">
                         </div>
-                        @error('category_title')
+                        @error('product_name')
                             <p class="text-danger mt-2">{{$message}}</p>
                         @enderror
                         <div class="form-group">
-                            <label class="control-label">Category Slug</label>
-                            <input class="form-control" type="text"  name="category_slug" value="@if($category_slug){{$category_slug}}@else {{old('category_slug')}}@endif" placeholder="Enter category slug">
+                            <label class="control-label">Product Slug</label>
+                            <input class="form-control" type="text"  name="product_slug" value="@if($product_slug){{$product_slug}}@else {{old('product_slug')}}@endif" placeholder="Enter product slug">
                         </div>
-                        @error('category_slug')
+                        @error('product_slug')
                             <p class="text-danger mt-2">{{$message}}</p>
                         @enderror
                         <div class="form-group">
-                            <label class="control-label">Details</label>
-                            <textarea class="form-control" type="text"  name="category_details" rows="4" placeholder="Enter category details">@if($category_details){{$category_details}}@else {{old('category_details')}}@endif</textarea>
+                            <label class="control-label">Product Details</label>
+                            <textarea class="form-control" type="text"  name="product_details" rows="4" placeholder="Enter product details">@if($product_details){{$product_details}}@else {{old('product_details')}}@endif</textarea>
                         </div>
-                        @error('category_details')
+                        @error('product_details')
                             <p class="text-danger mt-2">{{$message}}</p>
                         @enderror
 

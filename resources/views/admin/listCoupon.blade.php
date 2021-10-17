@@ -1,5 +1,6 @@
 @extends('admin.layouts.layout')
 @section('title') List Coupon @endsection
+@section('active_coupon') active @endsection
 @section('content')
     <div class="app-title">
         <div>

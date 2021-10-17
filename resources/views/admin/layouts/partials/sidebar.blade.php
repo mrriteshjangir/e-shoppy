@@ -22,7 +22,7 @@
                     <a class="treeview-item" href="{{url('admin/category/add')}}"><i class="icon fa fa-circle-o"></i>Add Category</a>
                 </li>
                 <li>
-                    <a class="treeview-item" href="{{url('admin/category/list')}}"><i class="icon fa fa-circle-o"></i> Manage Category</a>
+                    <a class="treeview-item" href="{{url('admin/category/list')}}"><i class="icon fa fa-circle-o"></i>Manage Category</a>
                 </li>
             </ul>
         </li>
@@ -36,7 +36,49 @@
                     <a class="treeview-item" href="{{url('admin/coupon/add')}}"><i class="icon fa fa-circle-o"></i>Add Coupon</a>
                 </li>
                 <li>
-                    <a class="treeview-item" href="{{url('admin/coupon/list')}}"><i class="icon fa fa-circle-o"></i> Manage Coupon</a>
+                    <a class="treeview-item" href="{{url('admin/coupon/list')}}"><i class="icon fa fa-circle-o"></i>Manage Coupon</a>
+                </li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a class="app-menu__item @yield('active_size')" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-window-maximize"></i>
+                <span class="app-menu__label">Size</span>
+                <i class="treeview-indicator fa fa-angle-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li>
+                    <a class="treeview-item" href="{{url('admin/size/add')}}"><i class="icon fa fa-circle-o"></i>Add Size</a>
+                </li>
+                <li>
+                    <a class="treeview-item" href="{{url('admin/size/list')}}"><i class="icon fa fa-circle-o"></i>Manage Size</a>
+                </li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a class="app-menu__item @yield('active_color')" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-paint-brush"></i>
+                <span class="app-menu__label">Color</span>
+                <i class="treeview-indicator fa fa-angle-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li>
+                    <a class="treeview-item" href="{{url('admin/color/add')}}"><i class="icon fa fa-circle-o"></i>Add Color</a>
+                </li>
+                <li>
+                    <a class="treeview-item" href="{{url('admin/color/list')}}"><i class="icon fa fa-circle-o"></i>Manage Color</a>
+                </li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a class="app-menu__item @yield('active_product')" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-paint-brush"></i>
+                <span class="app-menu__label">Product</span>
+                <i class="treeview-indicator fa fa-angle-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li>
+                    <a class="treeview-item" href="{{url('admin/product/add')}}"><i class="icon fa fa-circle-o"></i>Add Product</a>
+                </li>
+                <li>
+                    <a class="treeview-item" href="{{url('admin/product/list')}}"><i class="icon fa fa-circle-o"></i>Manage Product</a>
                 </li>
             </ul>
         </li>

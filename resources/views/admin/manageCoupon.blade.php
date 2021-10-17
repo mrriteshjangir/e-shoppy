@@ -4,7 +4,7 @@
 @else
     @section('title') Add Coupon @endsection
 @endif
-
+@section('active_coupon') active @endsection
 @section('content')
 <div class="app-title">
     <div>
@@ -20,7 +20,7 @@
 <a href="{{url('admin/coupon/list')}}" class="btn btn-info mb-3">List Coupon</a>
 <div class="row">
     <div class="col-md-12">
-        <form method="POST" action="{{route('admin.manageCoupon.post')}}">
+        <form method="POST" action="{{url('admin/coupon/post')}}">
             <div class="tile">
                 <div class="tile-body">
                         @csrf

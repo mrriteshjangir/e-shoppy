@@ -1,10 +1,10 @@
 @extends('admin.layouts.layout')
-@section('title') List Category @endsection
-@section('active_category') active @endsection
+@section('title') List Color @endsection
+@section('active_color') active @endsection
 @section('content')
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-list"></i> List Category</h1>
+            <h1><i class="fa fa-list"></i> List Color</h1>
         </div>
     </div>
     @if(session('message'))
@@ -13,7 +13,7 @@
         <p>{{session('message')}}</a>.</p>
     </div>
     @endif
-    <a href="{{url('admin/category/add')}}" class="btn btn-info mb-3">Add Category</a>
+    <a href="{{url('admin/color/add')}}" class="btn btn-info mb-3">Add Color</a>
     <div class="row">
         <div class="col-md-12">
             <div class="tile">
@@ -48,13 +48,10 @@
                                                 >#</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Position: activate to sort column ascending"
-                                                >Category Title</th>
+                                                >Color Title</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-label="Office: activate to sort column ascending"
-                                                >Category Slug</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-label="Age: activate to sort column ascending"
-                                                >Category Details</th>
+                                                colspan="1" aria-label="Position: activate to sort column ascending"
+                                                >Color Shade</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Start date: activate to sort column ascending"
                                                >Action</th>
@@ -65,27 +62,35 @@
                                     @foreach($data as $list)
                                         <tr role="row" class="odd">
                                             <td class="sorting_1">{{$sr}}</td>
-                                            <td>{{$list->category_title}}</td>
-                                            <td>{{$list->category_slug}}</td>
-                                            <td>{{$list->category_details}}</td>
+                                            <td>{{$list->color_title}}</td>
+                                            <!-- color box size and look -->
+                                            <style>
+                                                #color-box{
+                                                    height:25px;
+                                                    border:1px solid grey;
+                                                    border-radius:5px;
+                                                }
+                                            </style>
+                                            
+                                            <td><div id='color-box' style="background-color:{{$list->color_shade}};"></div></td>
                                             <td>
-                                                @if($list->category_status==0)
-                                                <a  href="{{url('admin/category/show')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
+                                                @if($list->color_status==0)
+                                                <a  href="{{url('admin/color/show')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
                                                 data-toggle="tooltip" data-placement="top" title="Hide it.">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
                                                 @else
-                                                <a href="{{url('admin/category/hide')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
+                                                <a href="{{url('admin/color/hide')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
                                                 data-toggle="tooltip" data-placement="top" title="Unhide it.">
                                                     <i class="fa fa-eye-slash"></i>
                                                 </a>
                                                 @endif
-                                                <a href="{{url('admin/category/edit')}}/{{$list->id}}" class="text-decoration-none btn btn-info ml-2"
+                                                <a href="{{url('admin/color/edit')}}/{{$list->id}}" class="text-decoration-none btn btn-info ml-2"
                                                 data-toggle="tooltip" data-placement="top" title="Edit it.">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 
-                                                <a  href="{{url('admin/category/delete')}}/{{$list->id}}" class="text-decoration-none btn btn-danger ml-2"
+                                                <a  href="{{url('admin/color/delete')}}/{{$list->id}}" class="text-decoration-none btn btn-danger ml-2"
                                                 data-toggle="tooltip" data-placement="top" title="Delete it.">
                                                     <i class="fa fa-trash"></i>
                                                 </a>

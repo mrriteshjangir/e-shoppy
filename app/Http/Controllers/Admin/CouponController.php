@@ -33,7 +33,7 @@ class CouponController extends Controller
     public function manageCoupon(Request $req){
         $req->validate([
             'coupon_title'=> 'required',
-            'coupon_code'=>'required|unique:categories,coupon_code,'.$req->post('id'),
+            'coupon_code'=>'required|unique:coupons,coupon_code,'.$req->post('id'),
             'coupon_details'=>'required',
         ]);
 

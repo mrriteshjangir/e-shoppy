@@ -1,10 +1,10 @@
 @extends('admin.layouts.layout')
-@section('title') List Category @endsection
-@section('active_category') active @endsection
+@section('title') List Product @endsection
+@section('active_product') active @endsection
 @section('content')
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-list"></i> List Category</h1>
+            <h1><i class="fa fa-list"></i> List product</h1>
         </div>
     </div>
     @if(session('message'))
@@ -13,7 +13,7 @@
         <p>{{session('message')}}</a>.</p>
     </div>
     @endif
-    <a href="{{url('admin/category/add')}}" class="btn btn-info mb-3">Add Category</a>
+    <a href="{{url('admin/product/add')}}" class="btn btn-info mb-3">Add Product</a>
     <div class="row">
         <div class="col-md-12">
             <div class="tile">
@@ -48,13 +48,13 @@
                                                 >#</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Position: activate to sort column ascending"
-                                                >Category Title</th>
+                                                >Product Name</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Office: activate to sort column ascending"
-                                                >Category Slug</th>
+                                                >Product Slug</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Age: activate to sort column ascending"
-                                                >Category Details</th>
+                                                >Product Details</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Start date: activate to sort column ascending"
                                                >Action</th>
@@ -65,27 +65,27 @@
                                     @foreach($data as $list)
                                         <tr role="row" class="odd">
                                             <td class="sorting_1">{{$sr}}</td>
-                                            <td>{{$list->category_title}}</td>
-                                            <td>{{$list->category_slug}}</td>
-                                            <td>{{$list->category_details}}</td>
+                                            <td>{{$list->product_name}}</td>
+                                            <td>{{$list->product_slug}}</td>
+                                            <td>{{$list->product_details}}</td>
                                             <td>
-                                                @if($list->category_status==0)
-                                                <a  href="{{url('admin/category/show')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
+                                                @if($list->product_status==0)
+                                                <a  href="{{url('admin/product/show')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
                                                 data-toggle="tooltip" data-placement="top" title="Hide it.">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
                                                 @else
-                                                <a href="{{url('admin/category/hide')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
+                                                <a href="{{url('admin/product/hide')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
                                                 data-toggle="tooltip" data-placement="top" title="Unhide it.">
                                                     <i class="fa fa-eye-slash"></i>
                                                 </a>
                                                 @endif
-                                                <a href="{{url('admin/category/edit')}}/{{$list->id}}" class="text-decoration-none btn btn-info ml-2"
+                                                <a href="{{url('admin/product/edit')}}/{{$list->id}}" class="text-decoration-none btn btn-info ml-2"
                                                 data-toggle="tooltip" data-placement="top" title="Edit it.">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 
-                                                <a  href="{{url('admin/category/delete')}}/{{$list->id}}" class="text-decoration-none btn btn-danger ml-2"
+                                                <a  href="{{url('admin/product/delete')}}/{{$list->id}}" class="text-decoration-none btn btn-danger ml-2"
                                                 data-toggle="tooltip" data-placement="top" title="Delete it.">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
