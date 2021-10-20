@@ -82,6 +82,20 @@
                 </li>
             </ul>
         </li>
+        <li class="treeview">
+            <a class="app-menu__item @yield('active_brand')" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-paint-brush"></i>
+                <span class="app-menu__label">Brand</span>
+                <i class="treeview-indicator fa fa-angle-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li>
+                    <a class="treeview-item" href="{{url('admin/brand/add')}}"><i class="icon fa fa-circle-o"></i>Add Brand</a>
+                </li>
+                <li>
+                    <a class="treeview-item" href="{{url('admin/brand/list')}}"><i class="icon fa fa-circle-o"></i>Manage Brand</a>
+                </li>
+            </ul>
+        </li>
         <li>
             <a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-cogs"></i>
                 <span class="app-menu__label">Settings</span>

@@ -7,6 +7,7 @@
     use App\Http\Controllers\Admin\SizeController;
     use App\Http\Controllers\Admin\ColorController;
     use App\Http\Controllers\Admin\ProductController;
+    use App\Http\Controllers\Admin\BrandController;
 
     Route::group(['prefix'=>'admin'],function()
     {
@@ -72,6 +73,18 @@
 
             Route::post('product/post',[ProductController::Class,'manageProduct']);
             // product Routes ended
+
+
+            // brand Routes Started
+            Route::get('brand/add',[BrandController::Class,'showForm']);
+            Route::get('brand/list',[BrandController::Class,'listBrand']);
+            Route::get('brand/delete/{id}',[BrandController::Class,'deleteBrand']);
+            Route::get('brand/show/{id}',[BrandController::Class,'showBrand']);
+            Route::get('brand/hide/{id}',[BrandController::Class,'hideBrand']);
+            Route::get('brand/edit/{id}',[BrandController::Class,'showForm']);
+
+            Route::post('brand/post',[BrandController::Class,'manageBrand']);
+            // brand Routes ended
 
             Route::get('/',function(){
                 return view('admin.index');
