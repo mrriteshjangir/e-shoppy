@@ -11,6 +11,9 @@ class Category extends Model
     use HasFactory;
 
     use Notifiable;
+    protected $connection = 'mongodb';
+    protected $collection = 'categories';
+    
     protected $fillable=[
         'category_title','category_slug','category_details',
     ];

@@ -46,15 +46,6 @@
                                 border-radius:5px;
                             }
                         </style>
-
-                        <!-- brand change script -->
-                        <!-- <script>
-                                function pickbrand(n){
-                                    // let brand=document.getElementById()
-                                   // document.getElementById('brand-box').setAttributes('style','display:block');
-                                    document.getElementById('brand-box').src=n.files[0]['name'];
-                                }
-                        </script> -->
                         
                         <!-- brand shade dispaly box -->
                         @if($id>0)
