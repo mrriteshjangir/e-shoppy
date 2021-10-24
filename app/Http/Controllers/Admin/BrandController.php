@@ -69,7 +69,6 @@ class BrandController extends Controller
             $brand_logo_old->storeAs('/public/media/brand/',$brand_logo_new);
 
             $model->brand_logo=$brand_logo_new;
-
         }
 
                 

@@ -69,21 +69,7 @@
             </ul>
         </li>
         <li class="treeview">
-            <a class="app-menu__item @yield('active_product')" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-paint-brush"></i>
-                <span class="app-menu__label">Product</span>
-                <i class="treeview-indicator fa fa-angle-right"></i>
-            </a>
-            <ul class="treeview-menu">
-                <li>
-                    <a class="treeview-item" href="{{url('admin/product/add')}}"><i class="icon fa fa-circle-o"></i>Add Product</a>
-                </li>
-                <li>
-                    <a class="treeview-item" href="{{url('admin/product/list')}}"><i class="icon fa fa-circle-o"></i>Manage Product</a>
-                </li>
-            </ul>
-        </li>
-        <li class="treeview">
-            <a class="app-menu__item @yield('active_brand')" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-paint-brush"></i>
+            <a class="app-menu__item @yield('active_brand')" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-certificate"></i>
                 <span class="app-menu__label">Brand</span>
                 <i class="treeview-indicator fa fa-angle-right"></i>
             </a>
@@ -96,6 +82,21 @@
                 </li>
             </ul>
         </li>
+        <li class="treeview">
+            <a class="app-menu__item @yield('active_product')" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-cubes"></i>
+                <span class="app-menu__label">Product</span>
+                <i class="treeview-indicator fa fa-angle-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li>
+                    <a class="treeview-item" href="{{url('admin/product/add')}}"><i class="icon fa fa-circle-o"></i>Add Product</a>
+                </li>
+                <li>
+                    <a class="treeview-item" href="{{url('admin/product/list')}}"><i class="icon fa fa-circle-o"></i>Manage Product</a>
+                </li>
+            </ul>
+        </li>
+        
         <li>
             <a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-cogs"></i>
                 <span class="app-menu__label">Settings</span>

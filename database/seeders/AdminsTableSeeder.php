@@ -6,8 +6,6 @@ use App\Models\Admin;
 
 use Illuminate\Database\Seeder;
 
-use Faker\Factory as Faker;
-
 class AdminsTableSeeder extends Seeder
 {
     /**
@@ -17,10 +15,9 @@ class AdminsTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker::create();
 
         Admin::create([
-            'name'      =>  $faker->name,
+            'name'      =>  'Ritesh Jangir',
             'email'     =>  'admin@admin.com',
             'mobile'    =>  '758123306',
             'password'  =>  Hash::make('admin')

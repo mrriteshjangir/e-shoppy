@@ -72,6 +72,8 @@
             Route::get('product/edit/{id}',[ProductController::Class,'showForm']);
 
             Route::post('product/post',[ProductController::Class,'manageProduct']);
+
+            Route::post('item/post',[ProductController::Class,'manageItem']);
             // product Routes ended
 
 

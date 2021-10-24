@@ -11,9 +11,6 @@ class Admin extends Model
     use HasFactory;
 
     use Notifiable;
-
-    protected $connection = 'mongodb';
-    protected $collection = 'admins';
     
     protected $fillable=[
         'name','email','mobile','password',
