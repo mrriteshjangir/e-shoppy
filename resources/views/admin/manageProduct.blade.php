@@ -17,10 +17,10 @@
         </h1>
     </div>
 </div>
+<form method="POST" action="{{url('admin/product/post')}}" enctype="multipart/form-data">
 <a href="{{url('admin/product/list')}}" class="btn btn-info mb-3">List Product</a>
 <div class="row">
     <div class="col-md-12">
-        <form method="POST" action="{{url('admin/product/post')}}" enctype="multipart/form-data">
             <div class="tile">
                 <div class="tile-body">
                     <div class="row">
@@ -102,16 +102,8 @@
                         <input type="hidden" value="{{$id}}" name="id"/>
                     </div>
                 </div>
-                <div class="tile-footer">
-                    <button class="btn btn-primary mr-3" type="submit">
-                        <i class="fa fa-fw fa-lg fa-check-circle"></i>Save
-                    </button>
-                    <button class="btn btn-secondary" type="reset">
-                        <i class="fa fa-fw fa-lg fa-times-circle"></i></i>Reset
-                    </button>
-                </div>
             </div>
-        </form>
+        
     </div>
 
 
@@ -119,7 +111,6 @@
     
     <div class="col-md-12">
         <span class="bg-info rounded p-2 d-inilne h6 text-white">Add a Item 1</span>
-        <form method="POST" action="{{url('admin/item/post')}}" enctype="multipart/form-data">
             <div class="tile mt-3">
                 <div class="tile-body">
                     <div class="row">
@@ -129,31 +120,31 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="control-label">Item Images</label>
-                                        <input class="form-control " type="file"  name="images" />
+                                        <input class="form-control " type="file" name="images[]"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="control-label">Item SKU</label>
-                                        <input class="form-control " type="text" name="sku" />
+                                        <input class="form-control " type="text" name="sku[]" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="control-label">Item Price</label>
-                                        <input class="form-control " type="number" name="price" />
+                                        <input class="form-control " type="number" name="price[]" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="control-label">Item Quantity</label>
-                                        <input class="form-control " type="number" name="qty" />
+                                        <input class="form-control " type="number" name="qty[]" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="control-label">Item Color</label>
-                                        <select class="form-control"  name="color">
+                                        <select class="form-control" type='number' name="color[]">
                                         <option value="null">none</option>
                                         @foreach($colors as $clist)
                                             <option value="{{$clist->id}}">{{$clist->color_title}}</option>
@@ -164,7 +155,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="control-label">Item Size</label>
-                                        <select class="form-control"  name="size">
+                                        <select class="form-control"  name="size[]">
                                         <option value="null">none</option>
                                         @foreach($sizes as $clist)
                                             <option value="{{$clist->id}}">{{$clist->size_title}} -- {{$clist->size_unit}}</option>
@@ -177,12 +168,7 @@
                             <input type="hidden" value="{{$id}}" name="id"/>
                             
                             <div class="tile-footer">
-                                <button class="btn btn-primary mr-3" type="submit">
-                                    <i class="fa fa-fw fa-lg fa-check-circle"></i>Save
-                                </button>
-                                <button class="btn btn-secondary" type="reset">
-                                    <i class="fa fa-fw fa-lg fa-times-circle"></i></i>Reset
-                                </button>
+                                
                                 <button class="btn btn-success" type="button" id="addItem">
                                     <i class="fa fa-fw fa-lg fa-plus"></i></i>Add More
                                 </button>
@@ -198,6 +184,21 @@
             
 </div>
 
+<div class="row">
+    <div class="col-md-12">
+       <div class=" tile mt-3">
+       <div class="tile-footer">
+                    <button class="btn btn-primary mr-3" type="submit">
+                        <i class="fa fa-fw fa-lg fa-check-circle"></i>Save
+                    </button>
+                    <button class="btn btn-secondary" type="reset">
+                        <i class="fa fa-fw fa-lg fa-times-circle"></i></i>Reset
+                    </button>
+                </div>
+        </div>
+</div>
+</div>   
+</form>
     <script>
 
         var count=2;
@@ -210,7 +211,6 @@
 
                 code+='<div class="col-md-12" id="itemBox">';
                 code+='<span class="bg-info rounded p-2 d-inilne h6 text-white">Add a Item '+count+'</span>';
-                code+='<form method="POST" action="{{url('admin/item/post')}}">';
                 code+='<div class="tile mt-3">';
                 code+='<div class="tile-body">';
                 code+='<div class="row">';

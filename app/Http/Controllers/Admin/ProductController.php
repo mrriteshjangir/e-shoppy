@@ -77,6 +77,24 @@ class ProductController extends Controller
         $model->product_model=$req->post('product_model');
         $model->brand_id=$req->post('brand_id');
 
+        $skuArr=$req->post('sku');
+        $priceArr=$req->post('price');
+        $qtyArr=$req->post('qty');
+        $colorArr=$req->post('color');
+        $sizeArr=$req->post('size');
+
+        foreach($skuArr as $key=>$val)
+        {
+          $check=DB::table('product_attributes')->where('sku','=',$skuArr[$key])->get();
+
+          if(isset($check[0])){
+            $req->session()->flash('sku_err',$skuArr[$key]. 'SKU is already present');
+
+            return redirect('admin/product/add');
+          }
+        }
+
+
         if($req->hasfile('product_image')){
             if($req->post('id')>0)
             {
@@ -101,6 +119,63 @@ class ProductController extends Controller
         }
 
         $model->save();
+
+        // this id holding the value of last product added
+
+        $pid=$model->id;
+
+        foreach($skuArr as $key=>$val)
+        {
+            $items=[];
+            $items['pid']=$pid;
+            $items['sku']=$skuArr[$key];
+            $items['price']=$priceArr[$key];
+            $items['qty']=$qtyArr[$key];
+
+            if($colorArr[$key]=='')
+            {
+                $items['color']=NULL;
+            }
+            else
+            {
+                $items['color']=$colorArr[$key];
+            }
+            
+            if($sizeArr[$key]=='')
+            {
+                $items['size']=NULL;
+            }
+            else
+            {
+                $items['size']=$sizeArr[$key];
+            }
+
+
+            if($req->hasFile('images.$key'))
+            {
+                // if($itemId[$key]!=='')
+                // {
+                //     $imageArr=DB::table('product_attributes')->where(['id'=>$itemId[$key]])->get();
+
+                //     if(Storage::exists('/public/media/product/item/'.$imageArr[0]->images)){
+                //         Storage::delete('/public/media/product/item/'.$imageArr[0]->images)
+                //     }
+                // }
+
+
+                $rand=rand('1111111111','9999999999');
+                $images=$req->file('images.$key');
+                $ext=$images->extension();
+                $image_name=$rand.'.'.$ext;
+
+                $req->file('images.$key')->storeAs('/public/media/product/item/',$image_name);
+
+                $items['images']=$image_name;
+
+            }
+
+            DB::table('product_attributes')->insert($items);
+        }
 
         $req->session()->flash('message',$msg);
 
