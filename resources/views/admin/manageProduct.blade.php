@@ -108,7 +108,16 @@
 
 
 
+    @php 
+        $item_count=1;
+    @endphp
+
+    @foreach($items as $key=>$val)
+        @php 
+            $ItemsArr=(array)$val;
+        @endphp
     
+    <input type="hidden" name="itemId[]" value="{{$ItemsArr['id']}}">
     <div class="col-md-12">
         <span class="bg-info rounded p-2 d-inilne h6 text-white">Add a Item 1</span>
             <div class="tile mt-3">
@@ -120,7 +129,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="control-label">Item Images</label>
-                                        <input class="form-control " type="file" name="images[]"/>
+                                        <input id="attr_image" class="form-control" style="padding:2px!important"  type="file" name="attr_image[]"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -179,7 +188,9 @@
             </div>
         </div>
     </div>
+    @endforeach
 </div>
+
 <div class="row" id="itemAll">
             
 </div>
@@ -209,7 +220,7 @@
             {
                 var code='';
 
-                code+='<div class="col-md-12" id="itemBox">';
+                code+='<input type="hidden" name="itemId[]" ><div class="col-md-12" id="itemBox">';
                 code+='<span class="bg-info rounded p-2 d-inilne h6 text-white">Add a Item '+count+'</span>';
                 code+='<div class="tile mt-3">';
                 code+='<div class="tile-body">';
@@ -220,7 +231,7 @@
                 code+='<div class="col-md-4">';
                 code+='<div class="form-group">';
                 code+='<label class="control-label">Item Images</label>';
-                code+='<input class="form-control " type="file"  name="images[]" />';
+                code+='<input class="form-control " type="file" style="padding:2px!important"  name="attr_image[]" />';
                 code+='</div>';
                 code+='</div>';
                 code+='<div class="col-md-4">';
@@ -245,7 +256,7 @@
                 code+='<div class="form-group">';
                 code+='<label class="control-label">Item Color</label>';
                 code+='<select class="form-control"  name="color[]">';
-                code+='@foreach($colors as $clist)<option value="{{$clist->id}}">{{$clist->color_title}}</option>@endforeach';
+                code+='<option value="null">none</option>@foreach($colors as $clist)<option value="{{$clist->id}}">{{$clist->color_title}}</option>@endforeach';
                 code+='</select>';
                 code+='</div>';
                 code+='</div>';
@@ -253,7 +264,7 @@
                 code+='<div class="form-group">';
                 code+='<label class="control-label">Item Size</label>';
                 code+='<select class="form-control"  name="size[]">';
-                code+='@foreach($sizes as $clist)<option value="{{$clist->id}}">{{$clist->size_title}} -- {{$clist->size_unit}}</option>@endforeach';
+                code+='<option value="null">none</option>@foreach($sizes as $clist)<option value="{{$clist->id}}">{{$clist->size_title}} -- {{$clist->size_unit}}</option>@endforeach';
                 code+='</select>';
                 code+='</div>';
                 code+='</div>';

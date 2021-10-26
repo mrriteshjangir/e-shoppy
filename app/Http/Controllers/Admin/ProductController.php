@@ -30,6 +30,7 @@ class ProductController extends Controller
             $result['brand_id']=$arr['0']->brand_id;
             $result['id']=$arr['0']->id;
 
+            $result['items']=DB::table('product_attributes')->where(['pid'=>$id])->get();
         }
         else
         {
@@ -41,6 +42,17 @@ class ProductController extends Controller
             $result['product_model']='';
             $result['brand_id']='';
             $result['id']=0;
+
+
+            
+            $result['items'][0]['id']=0;
+            $result['items'][0]['pid']='';
+            $result['items'][0]['sku']='';
+            $result['items'][0]['attr_image']='';
+            $result['items'][0]['price']='';
+            $result['items'][0]['qty']='';
+            $result['items'][0]['size']='';
+            $result['items'][0]['color']='';
         }
 
         $result['categories']=DB::table('categories')->where(['category_status'=>1])->get();
@@ -77,22 +89,23 @@ class ProductController extends Controller
         $model->product_model=$req->post('product_model');
         $model->brand_id=$req->post('brand_id');
 
+        $itemIdArr=$req->post('itemId');
         $skuArr=$req->post('sku');
         $priceArr=$req->post('price');
         $qtyArr=$req->post('qty');
         $colorArr=$req->post('color');
         $sizeArr=$req->post('size');
 
-        foreach($skuArr as $key=>$val)
-        {
-          $check=DB::table('product_attributes')->where('sku','=',$skuArr[$key])->get();
+        // foreach($skuArr as $key=>$val)
+        // {
+        //   $check=DB::table('product_attributes')->where('sku','=',$skuArr[$key])->get();
 
-          if(isset($check[0])){
-            $req->session()->flash('sku_err',$skuArr[$key]. 'SKU is already present');
+        //   if(isset($check[0])){
+        //     $req->session()->flash('sku_err',$skuArr[$key]. 'SKU is already present');
 
-            return redirect('admin/product/add');
-          }
-        }
+        //     return redirect('admin/product/add');
+        //   }
+        // }
 
 
         if($req->hasfile('product_image')){
@@ -124,57 +137,54 @@ class ProductController extends Controller
 
         $pid=$model->id;
 
-        foreach($skuArr as $key=>$val)
-        {
+        foreach($skuArr as $key=>$val){
             $items=[];
             $items['pid']=$pid;
             $items['sku']=$skuArr[$key];
-            $items['price']=$priceArr[$key];
-            $items['qty']=$qtyArr[$key];
+            $items['price']=(int)$priceArr[$key];
+            $items['qty']=(int)$qtyArr[$key];
 
-            if($colorArr[$key]=='')
+            if($colorArr[$key]=='null')
             {
-                $items['color']=NULL;
+                $items['color']=0;
             }
             else
             {
                 $items['color']=$colorArr[$key];
             }
             
-            if($sizeArr[$key]=='')
+            if($sizeArr[$key]=='null')
             {
-                $items['size']=NULL;
+                $items['size']=0;
             }
             else
             {
                 $items['size']=$sizeArr[$key];
             }
 
+            if($req->hasFile("attr_image.$key")){
+                // if($itemIdArr[$key]!=''){ 
+                //     $arrImage=DB::table('product_attributes')->where(['id'=>$itemIdArr[$key]])->get();
 
-            if($req->hasFile('images.$key'))
-            {
-                // if($itemId[$key]!=='')
-                // {
-                //     $imageArr=DB::table('product_attributes')->where(['id'=>$itemId[$key]])->get();
-
-                //     if(Storage::exists('/public/media/product/item/'.$imageArr[0]->images)){
-                //         Storage::delete('/public/media/product/item/'.$imageArr[0]->images)
+                //     if(Storage::exists('/public/media/product/items/'.$arrImage[0]->attr_image)){
+                //         Storage::delete('/public/media/product/items/'.$arrImage[0]->attr_image);
                 //     }
                 // }
 
+                $rand=rand('111111111','999999999');
+                $attr_image=$req->file("attr_image.$key");
+                $ext=$attr_image->extension();
+                $image_name=$rand.time().'.'.$ext;
+                $req->file("attr_image.$key")->storeAs('/public/media/product/items/',$image_name);
 
-                $rand=rand('1111111111','9999999999');
-                $images=$req->file('images.$key');
-                $ext=$images->extension();
-                $image_name=$rand.'.'.$ext;
-
-                $req->file('images.$key')->storeAs('/public/media/product/item/',$image_name);
-
-                $items['images']=$image_name;
-
+                $items['attr_image']=$image_name;
             }
 
-            DB::table('product_attributes')->insert($items);
+            // if($itemIdArr[$key]!=''){
+            //     DB::table('product_attributes')->where(['id'=>$itemIdArr[$key]])->update($items);
+            // }else{
+                DB::table('product_attributes')->insert($items);
+            //}
         }
 
         $req->session()->flash('message',$msg);
@@ -184,72 +194,7 @@ class ProductController extends Controller
         return back()->withInput($request->only('product_name','product_slug','product_details'));
     }
 
-    public function manageItem(Request $req){
-        
-        if($req->post('id')>0)
-        {
-            $model=Items::find($req->post('id'));
-            $msg='Item updated successfully';
-        }
-        else
-        {
-            $model = new Items();
-            $msg='Item added successfully';
-        }
-
-        $model->sku=$req->post('sku');
-        $model->price=$req->post('price');
-        $model->qty=$req->post('qty');
-
-        if($req->post('size')=='null')
-        {
-            $model->size=null;
-        }
-        else
-        {
-            $model->size=$req->post('size');
-        }
-        if($req->post('color')=='null')
-        {
-            $model->color=null;
-        }
-        else
-        {
-            $model->color=$req->post('color');
-        }
-        
-
-        if($req->hasfile('images')){
-            if($req->post('id')>0)
-            {
-                $imgList=DB::table('product_attributes')->where(['id'=>$req->post('id')])->get();
-
-                if(Storage::exists('/public/media/product/item/'.$imgList[0]->images))
-                {
-                    Storage::delete('/public/media/product/item/'.$imgList[0]->images);
-                }
-            }
-
-            $image_old=$req->file('images');
-
-            $ext=$image_old->extension();
-
-            $image_new=time().'.'.$ext;
-
-            $image_old->storeAs('/public/media/product/item/',$image_new);
-
-            $model->images=$image_new;
-
-        }
-
-        $model->save();
-
-        $req->session()->flash('message',$msg);
-
-        return redirect('admin/product/list');
-
-        return back()->withInput($request->only('sku','price','qty'));
-    }
+    
 
     public function listProduct()
     {
