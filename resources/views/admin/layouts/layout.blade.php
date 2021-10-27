@@ -16,10 +16,34 @@
         @yield('content')
     </main>
     @include('admin.layouts.partials.footer')
-    <script src="{{ asset('backend/js/jquery-3.2.1.min.js') }}"></script>
-    <script src="{{ asset('backend/js/popper.min.js') }}"></script>
-    <script src="{{ asset('backend/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('backend/js/main.js') }}"></script>
-    <script src="{{ asset('backend/js/plugins/pace.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('backend/js/jquery-3.2.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('backend/js/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('backend/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('backend/js/main.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('backend/js/plugins/pace.min.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('backend/js/plugins/bootstrap-datepicker.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('backend/js/plugins/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('backend/js/plugins/bootstrap-notify.min.js') }}"></script>
+
+    <script type="text/javascript">
+		// $('#sl').click(function () {
+		// 	$('#tl').loadingBtn();
+		// 	$('#tb').loadingBtn({ text: "Signing In" });
+		// });
+
+		// $('#el').click(function () {
+		// 	$('#tl').loadingBtnComplete();
+		// 	$('#tb').loadingBtnComplete({ html: "Sign In" });
+		// });
+
+		$('#demoDate').datepicker({
+			format: "dd/mm/yyyy",
+			autoclose: true,
+			todayHighlight: true
+		});
+
+		$('#demoSelect').select2();
+	</script>
 </body>
 </html>

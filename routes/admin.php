@@ -8,6 +8,8 @@
     use App\Http\Controllers\Admin\ColorController;
     use App\Http\Controllers\Admin\ProductController;
     use App\Http\Controllers\Admin\BrandController;
+    use App\Http\Controllers\Admin\ItemController;
+
 
     Route::group(['prefix'=>'admin'],function()
     {
@@ -87,6 +89,18 @@
 
             Route::post('brand/post',[BrandController::Class,'manageBrand']);
             // brand Routes ended
+
+
+            // item Routes Started
+            Route::get('item/add',[ItemController::Class,'showForm']);
+            Route::get('item/list',[ItemController::Class,'listItem']);
+            Route::get('item/delete/{id}',[ItemController::Class,'deleteItem']);
+            Route::get('item/show/{id}',[ItemController::Class,'showItem']);
+            Route::get('item/hide/{id}',[ItemController::Class,'hideItem']);
+            Route::get('item/edit/{id}',[ItemController::Class,'showForm']);
+
+            Route::post('item/post',[ItemController::Class,'manageItem']);
+            // item Routes ended
 
             Route::get('/',function(){
                 return view('admin.index');

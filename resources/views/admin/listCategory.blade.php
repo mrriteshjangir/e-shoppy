@@ -48,13 +48,11 @@
                                                 >#</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Position: activate to sort column ascending"
-                                                >Category Title</th>
+                                                >Title</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Office: activate to sort column ascending"
-                                                >Category Slug</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-label="Age: activate to sort column ascending"
-                                                >Category Details</th>
+                                                >Slug</th>
+                                            
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Start date: activate to sort column ascending"
                                                >Action</th>
@@ -67,7 +65,6 @@
                                             <td class="sorting_1">{{$sr}}</td>
                                             <td>{{$list->category_title}}</td>
                                             <td>{{$list->category_slug}}</td>
-                                            <td>{{$list->category_details}}</td>
                                             <td>
                                                 @if($list->category_status==0)
                                                 <a  href="{{url('admin/category/show')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"

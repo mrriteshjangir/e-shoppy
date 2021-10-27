@@ -48,13 +48,13 @@
                                                 >#</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Position: activate to sort column ascending"
-                                                >size Title</th>
+                                                >Title</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Office: activate to sort column ascending"
-                                                >size Unit</th>
+                                                >Value</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Age: activate to sort column ascending"
-                                                >size Details</th>
+                                                >Unit</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Start date: activate to sort column ascending"
                                                >Action</th>
@@ -66,8 +66,8 @@
                                         <tr role="row" class="odd">
                                             <td class="sorting_1">{{$sr}}</td>
                                             <td>{{$list->size_title}}</td>
+                                            <td>{{$list->size_value}}</td>
                                             <td>{{$list->size_unit}}</td>
-                                            <td>{{$list->size_details}}</td>
                                             <td>
                                                 @if($list->size_status==0)
                                                 <a  href="{{url('admin/size/show')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"

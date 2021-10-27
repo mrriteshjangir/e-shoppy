@@ -48,13 +48,16 @@
                                                 >#</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Position: activate to sort column ascending"
-                                                >Coupon Title</th>
+                                                >Title</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Office: activate to sort column ascending"
-                                                >Coupon Code</th>
+                                                >Code</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
+                                                colspan="1" aria-label="Office: activate to sort column ascending"
+                                                >Expiray Date</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Age: activate to sort column ascending"
-                                                >Coupon Details</th>
+                                                >Details</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Start date: activate to sort column ascending"
                                                >Action</th>
@@ -67,6 +70,7 @@
                                             <td class="sorting_1">{{$sr}}</td>
                                             <td>{{$list->coupon_title}}</td>
                                             <td>{{$list->coupon_code}}</td>
+                                            <td>{{$list->coupon_}}</td>
                                             <td>{{$list->coupon_details}}</td>
                                             <td>
                                                 @if($list->coupon_status==0)

@@ -14,10 +14,11 @@
     </section>
     @yield('content')
     @include('admin.layouts.partials.footer')
-    <script src="{{ asset('backend/js/jquery-3.2.1.min.js') }}"></script>
-    <script src="{{ asset('backend/js/popper.min.js') }}"></script>
-    <script src="{{ asset('backend/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('backend/js/main.js') }}"></script>
-    <script src="{{ asset('backend/js/plugins/pace.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('backend/js/jquery-3.2.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('backend/js/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('backend/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('backend/js/main.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('backend/js/plugins/pace.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('backend/js/plugins/bootstrap-notify.min.js') }}"></script>
 </body>
 </html>

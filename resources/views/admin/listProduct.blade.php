@@ -48,13 +48,11 @@
                                                 >#</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Position: activate to sort column ascending"
-                                                >Product Name</th>
+                                                >Name</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Office: activate to sort column ascending"
-                                                >Product Slug</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-label="Age: activate to sort column ascending"
-                                                >Product Details</th>
+                                                >Slug</th>
+                                            
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Start date: activate to sort column ascending"
                                                >Action</th>
@@ -67,7 +65,7 @@
                                             <td class="sorting_1">{{$sr}}</td>
                                             <td>{{$list->product_name}}</td>
                                             <td>{{$list->product_slug}}</td>
-                                            <td>{{$list->product_details}}</td>
+                                            
                                             <td>
                                                 @if($list->product_status==0)
                                                 <a  href="{{url('admin/product/show')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"

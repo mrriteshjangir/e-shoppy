@@ -39,6 +39,13 @@
                             <p class="text-danger mt-2">{{$message}}</p>
                         @enderror
                         <div class="form-group">
+                            <label class="control-label">Coupon Expiry Date</label>
+                            <input class="form-control" id="demoDate" type="text"  name="coupon_expiry" value="@if($coupon_expiry){{$coupon_expiry}}@else {{old('coupon_expiry')}}@endif" placeholder="Enter coupon expiry date">
+                        </div>
+                        @error('coupon_expiry')
+                            <p class="text-danger mt-2">{{$message}}</p>
+                        @enderror
+                        <div class="form-group">
                             <label class="control-label">Coupon Details</label>
                             <textarea class="form-control" type="text"  name="coupon_details" rows="4" placeholder="Enter coupon details">@if($coupon_details){{$coupon_details}}@else {{old('coupon_details')}}@endif</textarea>
                         </div>
@@ -61,4 +68,5 @@
         </form>
     </div>
 </div>
+
 @endsection

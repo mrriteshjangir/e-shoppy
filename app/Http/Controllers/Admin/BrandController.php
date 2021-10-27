@@ -55,9 +55,9 @@ class BrandController extends Controller
             {
                 $imgList=DB::table('brands')->where(['id'=>$req->post('id')])->get();
 
-                if(Storage::exists('/public/media/brand/'.$imgList[0]->brand_logo))
+                if(Storage::exists('/public/brand/'.$imgList[0]->brand_logo))
                 {
-                    Storage::delete('/public/media/brand/'.$imgList[0]->brand_logo);
+                    Storage::delete('/public/brand/'.$imgList[0]->brand_logo);
                 }
             }
             $brand_logo_old=$req->file('brand_logo');
@@ -66,7 +66,7 @@ class BrandController extends Controller
 
             $brand_logo_new=time().'.'.$ext;
 
-            $brand_logo_old->storeAs('/public/media/brand/',$brand_logo_new);
+            $brand_logo_old->storeAs('/public/brand/',$brand_logo_new);
 
             $model->brand_logo=$brand_logo_new;
         }
@@ -93,9 +93,9 @@ class BrandController extends Controller
 
         $imgList=DB::table('brands')->where(['id'=>$id])->get();
 
-        if(Storage::exists('/public/media/brand/'.$imgList[0]->brand_logo))
+        if(Storage::exists('/public/brand/'.$imgList[0]->brand_logo))
         {
-            Storage::delete('/public/media/brand/'.$imgList[0]->brand_logo);
+            Storage::delete('/public/brand/'.$imgList[0]->brand_logo);
         }
         
         $model=Brand::find($id);

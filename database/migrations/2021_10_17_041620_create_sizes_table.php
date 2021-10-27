@@ -15,10 +15,10 @@ class CreateSizesTable extends Migration
     {
         Schema::create('sizes', function (Blueprint $table) {
             $table->id();
-            $table->String('size_title')->unique();
-            $table->String('size_unit');
-            $table->String('size_details');
-            $table->String('size_status')->default(1);
+            $table->String('size_title')->nullable();
+            $table->String('size_value')->nullable();
+            $table->String('size_unit')->nullable();
+            $table->Integer('size_status')->default(1);
             $table->timestamps();
         });
     }

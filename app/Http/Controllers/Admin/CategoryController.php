@@ -16,14 +16,12 @@ class CategoryController extends Controller
 
             $result['category_title']=$arr['0']->category_title;
             $result['category_slug']=$arr['0']->category_slug;
-            $result['category_details']=$arr['0']->category_details;
             $result['id']=$arr['0']->id;
         }
         else
         {
             $result['category_title']='';
             $result['category_slug']='';
-            $result['category_details']='';
             $result['id']=0;
         }
 
@@ -34,7 +32,6 @@ class CategoryController extends Controller
         $req->validate([
             'category_title'=> 'required',
             'category_slug'=>'required|unique:categories,category_slug,'.$req->post('id'),
-            'category_details'=>'required',
         ]);
 
         if($req->post('id')>0)
@@ -50,7 +47,6 @@ class CategoryController extends Controller
 
         $model->category_title=$req->post('category_title');
         $model->category_slug=$req->post('category_slug');
-        $model->category_details=$req->post('category_details');
 
         $model->save();
 
@@ -58,7 +54,7 @@ class CategoryController extends Controller
 
         return redirect('admin/category/list');
 
-        return back()->withInput($request->only('category_title','category_slug','category_details'));
+        return back()->withInput($request->only('category_title','category_slug'));
     }
 
     public function listCategory()

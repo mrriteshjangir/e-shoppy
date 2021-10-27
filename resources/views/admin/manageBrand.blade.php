@@ -50,7 +50,7 @@
                         <!-- brand shade dispaly box -->
                         @if($id>0)
                         
-                        <img id='brand-box' src="@if($brand_logo){{asset('storage/media/brand/'.$brand_logo)}}@else{{asset('storage/media/brand/'.old('brand_logo'))}}@endif" />
+                        <img id='brand-box' src="@if($brand_logo){{asset('storage/brand/'.$brand_logo)}}@else{{asset('storage/brand/'.old('brand_logo'))}}@endif" />
                         @endif
 
                         <!-- usefull for edit & add new code -->

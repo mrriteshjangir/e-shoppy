@@ -31,26 +31,24 @@
                         @error('size_title')
                             <p class="text-danger mt-2">{{$message}}</p>
                         @enderror
+
                         <div class="form-group">
-                            <label for="exampleSelect1">Size Unit</label>
-                            <select class="form-control" id="exampleSelect1" name="size_unit">
-                                <option value="mtr" {{$size_unit=='mtr'||old('size_unit')=='mtr'?"selected":''}}>Meter</option>
-                                <option value="cms" {{$size_unit=='cms'||old('size_unit')=='cms'?"selected":''}}>Centimeters</option>
-                                <option value="foot" {{$size_unit=='foot'||old('size_unit')=='foot'?"selected":''}}>Foot</option>
-                                <option value="inc" {{$size_unit=='inc'||old('size_unit')=='inc'?"selected":''}}>Inches</option>
-                                <option value='free' {{$size_unit=='free'||old('size_unit')=='free'?"selected":''}}>Free</option>
-                            </select>
+                            <label class="control-label">Size Value</label>
+                            <input class="form-control"  type="text" name="size_value" value="@if($size_value){{$size_value}}@else {{old('size_value')}}@endif" placeholder="Enter size value">
                         </div>
+                        @error('size_value')
+                            <p class="text-danger mt-2">{{$message}}</p>
+                        @enderror
+
+                        <div class="form-group">
+                            <label class="control-label">Size Unit</label>
+                            <input class="form-control"  type="text" name="size_unit" value="@if($size_unit){{$size_unit}}@else {{old('size_unit')}}@endif" placeholder="Enter size unit">
+                        </div>
+                
                         @error('size_unit')
                             <p class="text-danger mt-2">{{$message}}</p>
                         @enderror
-                        <div class="form-group">
-                            <label class="control-label">Size Details</label>
-                            <textarea class="form-control" type="text"  name="size_details" rows="4" placeholder="Enter size details">@if($size_details){{$size_details}}@else {{old('size_details')}}@endif</textarea>
-                        </div>
-                        @error('size_details')
-                            <p class="text-danger mt-2">{{$message}}</p>
-                        @enderror
+                        
 
                         <!-- usefull for edit & add new code -->
                         <input type="hidden" value="{{$id}}" name="id"/>

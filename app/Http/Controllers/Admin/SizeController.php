@@ -16,14 +16,14 @@ class SizeController extends Controller
 
             $result['size_title']=$arr['0']->size_title;
             $result['size_unit']=$arr['0']->size_unit;
-            $result['size_details']=$arr['0']->size_details;
+            $result['size_value']=$arr['0']->size_value;
             $result['id']=$arr['0']->id;
         }
         else
         {
             $result['size_title']='';
             $result['size_unit']='';
-            $result['size_details']='';
+            $result['size_value']='';
             $result['id']=0;
         }
 
@@ -32,9 +32,9 @@ class SizeController extends Controller
 
     public function manageSize(Request $req){
         $req->validate([
-            'size_title'=> 'required|unique:sizes,size_title,'.$req->post('id'),
+            'size_title'=> 'required',
             'size_unit'=>'required',
-            'size_details'=>'required',
+            'size_value'=>'required',
         ]);
 
         if($req->post('id')>0)
@@ -50,7 +50,7 @@ class SizeController extends Controller
 
         $model->size_title=$req->post('size_title');
         $model->size_unit=$req->post('size_unit');
-        $model->size_details=$req->post('size_details');
+        $model->size_value=$req->post('size_value');
 
         $model->save();
 
@@ -58,7 +58,7 @@ class SizeController extends Controller
 
         return redirect('admin/size/list');
 
-        return back()->withInput($request->only('size_title','size_unit','size_details'));
+        return back()->withInput($request->only('size_title','size_unit','size_value'));
     }
 
     public function listSize()

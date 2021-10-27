@@ -1,10 +1,10 @@
 @extends('admin.layouts.layout')
-@section('title') List Brand @endsection
-@section('active_brand') active @endsection
+@section('title') List Item @endsection
+@section('active_product') active @endsection
 @section('content')
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-list"></i> List Brand</h1>
+            <h1><i class="fa fa-list mr-1"></i> List Item</h1>
         </div>
     </div>
     @if(session('message'))
@@ -13,7 +13,7 @@
         <p>{{session('message')}}</a>.</p>
     </div>
     @endif
-    <a href="{{url('admin/brand/add')}}" class="btn btn-info mb-3">Add Brand</a>
+    <a href="{{url('admin/item/add')}}" class="btn btn-info mb-3">Add Item</a>
     <div class="row">
         <div class="col-md-12">
             <div class="tile">
@@ -50,8 +50,11 @@
                                                 colspan="1" aria-label="Position: activate to sort column ascending"
                                                 >Name</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-label="Position: activate to sort column ascending"
-                                                >Logo</th>
+                                                colspan="1" aria-label="Office: activate to sort column ascending"
+                                                >Slug</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
+                                                colspan="1" aria-label="Age: activate to sort column ascending"
+                                                >Details</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Start date: activate to sort column ascending"
                                                >Action</th>
@@ -62,35 +65,27 @@
                                     @foreach($data as $list)
                                         <tr role="row" class="odd">
                                             <td class="sorting_1">{{$sr}}</td>
-                                            <td>{{$list->brand_name}}</td>
-                                            <!-- brand box size and look -->
-                                            <style>
-                                                #brand-box{
-                                                    height:50px;
-                                                    border:1px solid grey;
-                                                    border-radius:5px;
-                                                }
-                                            </style>
-                                            
-                                            <td><img src="{{asset('storage/brand/'.$list->brand_logo)}}" id="brand-box" alt="{{$list->brand_name}}"/></td>
+                                            <td>{{$list->product_name}}</td>
+                                            <td>{{$list->product_slug}}</td>
+                                            <td>{{$list->product_details}}</td>
                                             <td>
-                                                @if($list->brand_status==0)
-                                                <a  href="{{url('admin/brand/show')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
+                                                @if($list->product_status==0)
+                                                <a  href="{{url('admin/product/show')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
                                                 data-toggle="tooltip" data-placement="top" title="Hide it.">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
                                                 @else
-                                                <a href="{{url('admin/brand/hide')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
+                                                <a href="{{url('admin/product/hide')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
                                                 data-toggle="tooltip" data-placement="top" title="Unhide it.">
                                                     <i class="fa fa-eye-slash"></i>
                                                 </a>
                                                 @endif
-                                                <a href="{{url('admin/brand/edit')}}/{{$list->id}}" class="text-decoration-none btn btn-info ml-2"
+                                                <a href="{{url('admin/product/edit')}}/{{$list->id}}" class="text-decoration-none btn btn-info ml-2"
                                                 data-toggle="tooltip" data-placement="top" title="Edit it.">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 
-                                                <a  href="{{url('admin/brand/delete')}}/{{$list->id}}" class="text-decoration-none btn btn-danger ml-2"
+                                                <a  href="{{url('admin/product/delete')}}/{{$list->id}}" class="text-decoration-none btn btn-danger ml-2"
                                                 data-toggle="tooltip" data-placement="top" title="Delete it.">
                                                     <i class="fa fa-trash"></i>
                                                 </a>

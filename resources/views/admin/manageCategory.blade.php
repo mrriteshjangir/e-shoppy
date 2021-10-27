@@ -38,13 +38,6 @@
                         @error('category_slug')
                             <p class="text-danger mt-2">{{$message}}</p>
                         @enderror
-                        <div class="form-group">
-                            <label class="control-label">Details</label>
-                            <textarea class="form-control" type="text"  name="category_details" rows="4" placeholder="Enter category details">@if($category_details){{$category_details}}@else {{old('category_details')}}@endif</textarea>
-                        </div>
-                        @error('category_details')
-                            <p class="text-danger mt-2">{{$message}}</p>
-                        @enderror
 
                         <!-- usefull for edit & add new code -->
                         <input type="hidden" value="{{$id}}" name="id"/>

@@ -16,6 +16,7 @@ class CouponController extends Controller
 
             $result['coupon_title']=$arr['0']->coupon_title;
             $result['coupon_code']=$arr['0']->coupon_code;
+            $result['coupon_expiry']=$arr['0']->coupon_expiry;
             $result['coupon_details']=$arr['0']->coupon_details;
             $result['id']=$arr['0']->id;
         }
@@ -23,6 +24,7 @@ class CouponController extends Controller
         {
             $result['coupon_title']='';
             $result['coupon_code']='';
+            $result['coupon_expiry']='';
             $result['coupon_details']='';
             $result['id']=0;
         }
@@ -34,6 +36,7 @@ class CouponController extends Controller
         $req->validate([
             'coupon_title'=> 'required',
             'coupon_code'=>'required|unique:coupons,coupon_code,'.$req->post('id'),
+            'coupon_expiry'=>'required',
             'coupon_details'=>'required',
         ]);
 
@@ -50,6 +53,7 @@ class CouponController extends Controller
 
         $model->coupon_title=$req->post('coupon_title');
         $model->coupon_code=$req->post('coupon_code');
+        $model->coupon_expiry=$req->post('coupon_expiry');
         $model->coupon_details=$req->post('coupon_details');
 
         $model->save();
