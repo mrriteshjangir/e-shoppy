@@ -73,7 +73,7 @@
                             <div class="form-group">
                                 <label class="control-label">Item Color</label>
                                 <select class="form-control" type='number' name="color_id">
-                                    <option value="null">none</option>
+                                    <option value="0">none</option>
                                     @foreach($colors as $clist)
                                         <option value="{{$clist->id}}" style="background:{{$clist->color_shade}}">{{$clist->color_title}}</option>
                                     @endforeach
@@ -84,7 +84,7 @@
                             <div class="form-group">
                                 <label class="control-label">Item Size</label>
                                 <select class="form-control"  name="size_id">
-                                    <option value="null">none</option>
+                                    <option value="0">none</option>
                                     @foreach($sizes as $clist)
                                         <option value="{{$clist->id}}">{{$clist->size_title}} -- {{$clist->size_value}} -- {{$clist->size_unit}}</option>
                                     @endforeach

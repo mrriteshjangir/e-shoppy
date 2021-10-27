@@ -37,11 +37,9 @@ class ItemController extends Controller
 
             $services=explode(' ',$arr['0']->item_service);
 
-            
             $result['item_service_type']=$services[0];
             $result['service_duration']=$services[1];
             $result['service_in']=$services[2];
-
 
         }
         else
@@ -117,6 +115,8 @@ class ItemController extends Controller
 
         $model->save();
 
+        $item_id=$model->id;
+
         if($req->hasfile('image_url')){
             // if($req->post('id')>0)
             // {
@@ -145,7 +145,9 @@ class ItemController extends Controller
 
             $imgModal = new Image();
 
-            $model->image_url=implode(',',$imgArr);;
+            $imgModal->item_id=$item_id;
+            
+            $imgModal->image_url=implode(',',$imgArr);;
 
             $imgModal->save();
         }

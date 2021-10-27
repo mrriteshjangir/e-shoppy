@@ -70,7 +70,7 @@
                                             <td class="sorting_1">{{$sr}}</td>
                                             <td>{{$list->coupon_title}}</td>
                                             <td>{{$list->coupon_code}}</td>
-                                            <td>{{$list->coupon_}}</td>
+                                            <td>{{$list->coupon_expiry}}</td>
                                             <td>{{$list->coupon_details}}</td>
                                             <td>
                                                 @if($list->coupon_status==0)

@@ -1,6 +1,6 @@
 @extends('admin.layouts.layout')
 @section('title') List Item @endsection
-@section('active_product') active @endsection
+@section('active_item') active @endsection
 @section('content')
     <div class="app-title">
         <div>
@@ -48,10 +48,10 @@
                                                 >#</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Position: activate to sort column ascending"
-                                                >Name</th>
+                                                >SKU</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Office: activate to sort column ascending"
-                                                >Slug</th>
+                                                >Price</th>
                                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
                                                 colspan="1" aria-label="Age: activate to sort column ascending"
                                                 >Details</th>
@@ -65,27 +65,27 @@
                                     @foreach($data as $list)
                                         <tr role="row" class="odd">
                                             <td class="sorting_1">{{$sr}}</td>
-                                            <td>{{$list->product_name}}</td>
-                                            <td>{{$list->product_slug}}</td>
-                                            <td>{{$list->product_details}}</td>
+                                            <td>{{$list->item_sku}}</td>
+                                            <td>{{$list->item_price}}</td>
+                                            <td>{{$list->item_details}}</td>
                                             <td>
-                                                @if($list->product_status==0)
-                                                <a  href="{{url('admin/product/show')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
+                                                @if($list->item_status==0)
+                                                <a  href="{{url('admin/item/show')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
                                                 data-toggle="tooltip" data-placement="top" title="Hide it.">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
                                                 @else
-                                                <a href="{{url('admin/product/hide')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
+                                                <a href="{{url('admin/item/hide')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
                                                 data-toggle="tooltip" data-placement="top" title="Unhide it.">
                                                     <i class="fa fa-eye-slash"></i>
                                                 </a>
                                                 @endif
-                                                <a href="{{url('admin/product/edit')}}/{{$list->id}}" class="text-decoration-none btn btn-info ml-2"
+                                                <a href="{{url('admin/item/edit')}}/{{$list->id}}" class="text-decoration-none btn btn-info ml-2"
                                                 data-toggle="tooltip" data-placement="top" title="Edit it.">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 
-                                                <a  href="{{url('admin/product/delete')}}/{{$list->id}}" class="text-decoration-none btn btn-danger ml-2"
+                                                <a  href="{{url('admin/item/delete')}}/{{$list->id}}" class="text-decoration-none btn btn-danger ml-2"
                                                 data-toggle="tooltip" data-placement="top" title="Delete it.">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
