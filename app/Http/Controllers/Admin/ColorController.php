@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 
 use App\Models\Color;
 
+use Illuminate\Support\Facades\DB;
+
 class ColorController extends Controller
 {
-    public function showForm($id=''){
+    public function showForm(Request $req,$id=''){
         if($id>0)
         {
             $arr=Color::where(['id'=>$id])->get();
@@ -25,6 +27,15 @@ class ColorController extends Controller
             $result['id']=0;
         }
 
+        if($req->cookie('ADMIN_LOGGED'))
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->cookie('ADMIN_LOGGED')])->get();
+        }
+        else
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->session('ADMIN_LOGGED')])->get();
+        } 
+        
         return view('admin.manageColor',$result);
     }
 
@@ -57,9 +68,19 @@ class ColorController extends Controller
         return back()->withInput($request->only('color_title','color_shade'));
     }
 
-    public function listColor()
+    public function listColor(Request $req)
     {
         $result['data']=Color::all();
+
+        
+        if($req->cookie('ADMIN_LOGGED'))
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->cookie('ADMIN_LOGGED')])->get();
+        }
+        else
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->session('ADMIN_LOGGED')])->get();
+        }
 
         return view('admin.listColor',$result);
     }

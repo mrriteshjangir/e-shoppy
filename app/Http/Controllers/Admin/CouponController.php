@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 
 use App\Models\Coupon;
 
+use Illuminate\Support\Facades\DB;
+
 class CouponController extends Controller
 {
-    public function showForm($id=''){
+    public function showForm(Request $req,$id=''){
         if($id>0)
         {
             $arr=Coupon::where(['id'=>$id])->get();
@@ -29,6 +31,15 @@ class CouponController extends Controller
             $result['id']=0;
         }
 
+        if($req->cookie('ADMIN_LOGGED'))
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->cookie('ADMIN_LOGGED')])->get();
+        }
+        else
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->session('ADMIN_LOGGED')])->get();
+        } 
+        
         return view('admin.manageCoupon',$result);
     }
 
@@ -65,9 +76,18 @@ class CouponController extends Controller
         return back()->withInput($request->only('coupon_title','coupon_code','coupon_details'));
     }
 
-    public function listCoupon()
+    public function listCoupon(Request $req)
     {
         $result['data']=Coupon::all();
+
+        if($req->cookie('ADMIN_LOGGED'))
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->cookie('ADMIN_LOGGED')])->get();
+        }
+        else
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->session('ADMIN_LOGGED')])->get();
+        }
 
         return view('admin.listCoupon',$result);
     }

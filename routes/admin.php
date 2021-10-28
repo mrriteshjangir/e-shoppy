@@ -100,6 +100,7 @@
             Route::get('item/edit/{id}',[ItemController::Class,'showForm']);
 
             Route::post('item/post',[ItemController::Class,'manageItem']);
+            Route::post('position/post',[ItemController::Class,'changePosition']);
             // item Routes ended
 
             Route::get('/',function(){

@@ -12,7 +12,7 @@ use Storage;
 
 class BrandController extends Controller
 {
-    public function showForm($id=''){
+    public function showForm(Request $req,$id=''){
         if($id>0)
         {
             $arr=Brand::where(['id'=>$id])->get();
@@ -28,6 +28,15 @@ class BrandController extends Controller
             $result['id']=0;
         }
 
+        if($req->cookie('ADMIN_LOGGED'))
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->cookie('ADMIN_LOGGED')])->get();
+        }
+        else
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->session('ADMIN_LOGGED')])->get();
+        } 
+        
         return view('admin.manageBrand',$result);
     }
 
@@ -82,9 +91,18 @@ class BrandController extends Controller
         return back()->withInput($request->only('brand_name','brand_logo'));
     }
 
-    public function listBrand()
+    public function listBrand(Request $req)
     {
         $result['data']=Brand::all();
+
+        if($req->cookie('ADMIN_LOGGED'))
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->cookie('ADMIN_LOGGED')])->get();
+        }
+        else
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->session('ADMIN_LOGGED')])->get();
+        }
 
         return view('admin.listBrand',$result);
     }

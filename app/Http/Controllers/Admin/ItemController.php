@@ -12,11 +12,17 @@ use App\Models\Item;
 
 use App\Models\Image;
 
+use App\Models\Size;
+
+use App\Models\Product;
+
+use App\Models\Color;
+
 use Storage;
 
 class ItemController extends Controller
 {
-    public function showForm($id=''){
+    public function showForm(Request $req,$id=''){
         if($id>0)
         {
             $arr=Item::where(['id'=>$id])->get();
@@ -67,23 +73,35 @@ class ItemController extends Controller
         $result['colors']=DB::table('colors')->where(['color_status'=>1])->get();
         $result['sizes']=DB::table('sizes')->where(['size_status'=>1])->get();
 
+        if($req->cookie('ADMIN_LOGGED'))
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->cookie('ADMIN_LOGGED')])->get();
+        }
+        else
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->session('ADMIN_LOGGED')])->get();
+        }        
+        
+
         return view('admin.manageItem',$result);
     }
 
     public function manageItem(Request $req){
 
-        // $req->validate([
-        //     'item_sku'=>'required|unique:items,item_sku,'.$req->post('id'),
-        //     'item_mrp'=>'required',
-        //     'item_price'=> 'required',
-        //     'item_qty'=> 'required',
-        //     'item_details'=> 'required',
-        //     'item_name'=> 'required',
-        //     'item_name'=> 'required',
-        //     'item_name'=> 'required',
-        //     'image_url' => 'required',
-        //     'image_url.*' => 'mimes:jpeg,jpg,png'
-        // ]);
+        if($request->post('id')>0){
+            $image_validation="mimes:jpeg,jpg,png";
+        }else{
+            $image_validation="required|mimes:jpeg,jpg,png";
+        }
+
+        $req->validate([
+            'item_sku'=>'required|unique:items,item_sku,'.$req->post('id'),
+            'item_mrp'=>'required',
+            'item_price'=> 'required',
+            'item_qty'=> 'required',
+            'image_url' => $image_validation,
+            'image_url.*' => 'mimes:jpeg,jpg,png'
+        ]);
 
         if($req->post('id')>0)
         {
@@ -96,7 +114,6 @@ class ItemController extends Controller
             $msg='Item added successfully';
         }
 
-        
         $model->product_id=$req->post('product_id');
         $model->item_sku=$req->post('item_sku');
         $model->item_mrp=$req->post('item_mrp');
@@ -106,7 +123,7 @@ class ItemController extends Controller
         $model->size_id=$req->post('size_id');
         $model->item_details=$req->post('item_details');
         $model->item_keywords=$req->post('item_keywords');
-        $model->item_tech_speci=$req->post('item_uses');
+        $model->item_tech_speci=$req->post('item_tech_speci');
         $model->item_uses=$req->post('item_uses');
 
         $servicesArr=array($req->post('item_service_type'),$req->post('service_duration'),$req->post('service_in'));
@@ -118,15 +135,21 @@ class ItemController extends Controller
         $item_id=$model->id;
 
         if($req->hasfile('image_url')){
-            // if($req->post('id')>0)
-            // {
-            //     $imgList=DB::table('items')->where(['id'=>$req->post('id')])->get();
 
-            //     if(Storage::exists('/public/media/item/'.$imgList[0]->item_image))
-            //     {
-            //         Storage::delete('/public/media/item/'.$imgList[0]->item_image);
-            //     }
-            // }
+            if($req->post('id')>0)
+            {
+                $imgList=DB::table('items')->where(['id'=>$req->post('id')])->get();
+
+                $allImg=explode(',',$imgList[0]->item_image);
+
+                foreach($allImg as $img)
+                {
+                    if(Storage::exists('/public/item/'.$img))
+                    {
+                        Storage::delete('/public/item/'.$img);
+                    }
+                }
+            }
             
             $imgArr=array();
 
@@ -157,25 +180,59 @@ class ItemController extends Controller
 
         return redirect('admin/item/list');
 
-        return back()->withInput($request->only('item_name','item_slug','item_details'));
+        return back()->withInput(
+            $request->only(
+                'product_id','item_sku','item_mrp','item_price','item_qty','color_id','size_id','item_details',
+                'item_keywords','item_tech_speci','item_uses','item_service_type','service_duration','service_in'
+        ));
     }
 
-    
+    public function changePosition(Request $req){
 
-    public function listItem()
+        $model=Item::find($req->post('id'));
+
+        $model->item_at=$req->post('item_at');
+
+        $model->save();
+
+        $req->session()->flash('message','Postion of item has been updated');
+
+        return redirect('admin/item/list');
+    }
+
+    public function listItem(Request $req)
     {
-        $result['data']=Item::all();
+        $result['data']=Item::join('images', 'images.item_id', '=', 'items.id')
+                                ->join('products', 'products.id', '=', 'items.product_id')
+                                ->join('categories', 'categories.id', '=', 'products.category_id')
+                                ->join('colors', 'colors.id', '=', 'items.color_id')
+                                ->join('sizes', 'sizes.id', '=', 'items.size_id')
+                                ->get(['items.*', 'images.image_url','products.product_name','categories.category_title','colors.color_shade','sizes.*']);
 
+        
+        if($req->cookie('ADMIN_LOGGED'))
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->cookie('ADMIN_LOGGED')])->get();
+        }
+        else
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->session('ADMIN_LOGGED')])->get();
+        }
         return view('admin.listItem',$result);
     }
 
     public function deleteItem(Request $req,$id){
 
-        $imgList=DB::table('items')->where(['id'=>$id])->get();
+        $imgList=DB::table('items')->where(['id'=>$req->post('id')])->get();
 
-        if(Storage::exists('/public/media/item/'.$imgList[0]->item_image))
+        $allImg=explode(',',$imgList[0]->item_image);
+
+        foreach($allImg as $img)
         {
-            Storage::delete('/public/media/item/'.$imgList[0]->item_image);
+            if(Storage::exists('/public/item/'.$img))
+            {
+                Storage::delete('/public/item/'.$img);
+            }
         }
 
         $model=item::find($id);

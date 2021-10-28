@@ -18,116 +18,166 @@
         <div class="col-md-12">
             <div class="tile">
                 <div class="tile-body">
-                    <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-6">
-                                <div class="dataTables_length" id="sampleTable_length"><label>Show <select
-                                            name="sampleTable_length" aria-controls="sampleTable"
-                                            class="form-control form-control-sm">
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                        </select> entries</label></div>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <div id="sampleTable_filter" class="dataTables_filter"><label>Search:<input type="search"
-                                            class="form-control form-control-sm" placeholder=""
-                                            aria-controls="sampleTable"></label></div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable"
-                                    role="grid" aria-describedby="sampleTable_info">
-                                    <thead>
-                                        <tr role="row">
-                                            <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-sort="ascending"
-                                                aria-label="Name: activate to sort column descending"
-                                                >#</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-label="Position: activate to sort column ascending"
-                                                >SKU</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-label="Office: activate to sort column ascending"
-                                                >Price</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-label="Age: activate to sort column ascending"
-                                                >Details</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1"
-                                                colspan="1" aria-label="Start date: activate to sort column ascending"
-                                               >Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    @php ($sr=1)
-                                    @foreach($data as $list)
-                                        <tr role="row" class="odd">
-                                            <td class="sorting_1">{{$sr}}</td>
-                                            <td>{{$list->item_sku}}</td>
-                                            <td>{{$list->item_price}}</td>
-                                            <td>{{$list->item_details}}</td>
-                                            <td>
-                                                @if($list->item_status==0)
-                                                <a  href="{{url('admin/item/show')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
-                                                data-toggle="tooltip" data-placement="top" title="Hide it.">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                                @else
-                                                <a href="{{url('admin/item/hide')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
-                                                data-toggle="tooltip" data-placement="top" title="Unhide it.">
-                                                    <i class="fa fa-eye-slash"></i>
-                                                </a>
-                                                @endif
-                                                <a href="{{url('admin/item/edit')}}/{{$list->id}}" class="text-decoration-none btn btn-info ml-2"
-                                                data-toggle="tooltip" data-placement="top" title="Edit it.">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                
-                                                <a  href="{{url('admin/item/delete')}}/{{$list->id}}" class="text-decoration-none btn btn-danger ml-2"
-                                                data-toggle="tooltip" data-placement="top" title="Delete it.">
-                                                    <i class="fa fa-trash"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        @php ($sr++)
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-5">
-                                <div class="dataTables_info" id="sampleTable_info" role="status" aria-live="polite">Showing
-                                    1 to 10 of 57 entries</div>
-                            </div>
-                            <div class="col-sm-12 col-md-7">
-                                <div class="dataTables_paginate paging_simple_numbers" id="sampleTable_paginate">
-                                    <ul class="pagination">
-                                        <li class="paginate_button page-item previous disabled" id="sampleTable_previous"><a
-                                                href="#" aria-controls="sampleTable" data-dt-idx="0" tabindex="0"
-                                                class="page-link">Previous</a></li>
-                                        <li class="paginate_button page-item active"><a href="#" aria-controls="sampleTable"
-                                                data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
-                                        <li class="paginate_button page-item "><a href="#" aria-controls="sampleTable"
-                                                data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-                                        <li class="paginate_button page-item "><a href="#" aria-controls="sampleTable"
-                                                data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
-                                        <li class="paginate_button page-item "><a href="#" aria-controls="sampleTable"
-                                                data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
-                                        <li class="paginate_button page-item "><a href="#" aria-controls="sampleTable"
-                                                data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
-                                        <li class="paginate_button page-item "><a href="#" aria-controls="sampleTable"
-                                                data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
-                                        <li class="paginate_button page-item next" id="sampleTable_next"><a href="#"
-                                                aria-controls="sampleTable" data-dt-idx="7" tabindex="0"
-                                                class="page-link">Next</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <table class="table table-hover table-bordered" id="sampleTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>SKU</th>
+                                <th>Pricing</th>
+                                <th>Quantity</th>
+                                <th>Details</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @php ($sr=1)
+                        @php ($i=0)
+                        @foreach($data as $list)
+                            <tr>
+                                <td>{{$sr}}</td>
+                                <td>{{$list->item_sku}}</td>
+                                <td>
+                                    <s class="text-danger">₹ {{$list->item_mrp}} /-</s> 
+                                    <span class="text-success">₹ {{$list->item_price}} /-</span>
+                                </td>
+                                <td>{{$list->item_qty}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{$list->id}}">
+                                        More
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal{{$list->id}}" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="title">Item Information</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <p><b>Product Name :- </b> {{$list->product_name}}</p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p><b>Category Name :- </b> {{$list->category_title}}</p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p><b>SKU No. :- </b> {{$list->item_sku}}</p>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <p><b>MRP :- </b> {{$list->item_mrp}}</p>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <p><b>Price :- </b> {{$list->item_price}}</p>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <p><b>Quantity :- </b> {{$list->item_qty}}</p>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <p><b>Item Positon at :- </b> {{ucfirst($list->item_at)}}</p>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            @foreach(explode(',',$list->image_url) as $one)
+                                                                <img src="{{asset('storage/item/'.$one)}}" style="height:100px"/>
+                                                            @endforeach
+                                                        </div>
+                                                        @if($list->color_shade)
+                                                        <div class="col-md-6">
+                                                            <b>Color :</b>
+                                                            <div style='height:30px;width:30px;border-radius:40px;background:{{$list->color_shade}}'></div>
+                                                        </div>
+                                                        @endif
+                                                        @if($list->size_title)
+                                                        <div class="col-md-6">
+                                                            <p>
+                                                                <b>Size Title :-</b>{{$list->size_title}}
+                                                                <b class="ml-2">Size Value :-</b>{{$list->size_value}}
+                                                                <b class="ml-2">Size Unit :-</b>{{$list->size_unit}}
+                                                            </P>
+                                                        </div>
+                                                        @endif
+                                                        @if($list->item_details)
+                                                        <div class="col-md-12 mt-2">
+                                                            <b>Details :- </b>
+                                                            <p class="text-justify mt-2">{{$list->item_details}}</p>
+                                                        </div>
+                                                        @endif
+                                                        @if($list->item_tech_speci)
+                                                        <div class="col-md-12">
+                                                            <b>Technical Specification :- </b> 
+                                                            <p class="text-justify mt-2">{{$list->item_tech_speci}}</p>
+                                                        </div>
+                                                        @endif
+                                                        @if($list->item_uses)
+                                                        <div class="col-md-12">
+                                                            <b>Uses :- </b>
+                                                            <p class="text-justify mt-2">{{$list->item_uses}}</p>
+                                                        </div>
+                                                        @endif
+                                                        @if($list->item_service)
+                                                        <div class="col-md-12">
+                                                            <p><b>Service Info :- </b> {{ucfirst($list->item_service)}}</p>
+                                                        </div>
+                                                        @endif
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <form method="POST" action="{{url('admin/position/post')}}">
+                                    @if($list->item_status==0)
+                                    <a  href="{{url('admin/item/show')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
+                                    data-toggle="tooltip" data-placement="top" title="Hide it.">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    @else
+                                    <a href="{{url('admin/item/hide')}}/{{$list->id}}" class="text-decoration-none btn btn-warning"
+                                    data-toggle="tooltip" data-placement="top" title="Unhide it.">
+                                        <i class="fa fa-eye-slash"></i>
+                                    </a>
+                                    @endif
+                                    <a href="{{url('admin/item/edit')}}/{{$list->id}}" class="text-decoration-none btn btn-info ml-2"
+                                    data-toggle="tooltip" data-placement="top" title="Edit it.">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    
+                                    <a  href="{{url('admin/item/delete')}}/{{$list->id}}" class="text-decoration-none btn btn-danger ml-2"
+                                    data-toggle="tooltip" data-placement="top" title="Delete it.">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                    
+                                    
+                                        @csrf
+                                        <input type="hidden" value="{{$list->id}}" name="id"/> 
+                                        <select class='btn btn-dark ml-2' style="width:100px" name="item_at" id='item_at{{$list->id}}'>
+                                            <option value="0">-: Change Position :-</option>
+                                            <option value="normal" @if(($list->item_at)=='normal'){{'selected'}} @endif>Normal</option>
+                                            <option value="slider" @if(($list->item_at)=='slider'){{'selected'}} @endif>Slider</option>
+                                            <option value="top" @if(($list->item_at)=='top'){{'selected'}} @endif>Top</option>
+                                        </select>
+                                        <script>
+                                            var select = document.getElementById('item_at{{$list->id}}');
+                                            select.onchange = function(){
+                                                this.form.submit();
+                                            };
+                                        </script>
+                                    </form>
+                                </td>
+                            </tr>
+                            @php ($sr++)
+                            @php ($i++)
+                        @endforeach
+                        </tbody>
+                    </table> 
                 </div>
             </div>
         </div>

@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Models\Category;
 
 class CategoryController extends Controller
 {
-    public function showForm($id=''){
+    public function showForm(Request $req,$id=''){
         if($id>0)
         {
             $arr=Category::where(['id'=>$id])->get();
@@ -24,6 +26,15 @@ class CategoryController extends Controller
             $result['category_slug']='';
             $result['id']=0;
         }
+
+        if($req->cookie('ADMIN_LOGGED'))
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->cookie('ADMIN_LOGGED')])->get();
+        }
+        else
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->session('ADMIN_LOGGED')])->get();
+        } 
 
         return view('admin.manageCategory',$result);
     }
@@ -57,9 +68,19 @@ class CategoryController extends Controller
         return back()->withInput($request->only('category_title','category_slug'));
     }
 
-    public function listCategory()
+    public function listCategory(Request $req)
     {
         $result['data']=Category::all();
+
+        if($req->cookie('ADMIN_LOGGED'))
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->cookie('ADMIN_LOGGED')])->get();
+        }
+        else
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->session('ADMIN_LOGGED')])->get();
+        }
+
 
         return view('admin.listCategory',$result);
     }

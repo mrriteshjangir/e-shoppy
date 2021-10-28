@@ -14,7 +14,7 @@ use Storage;
 
 class ProductController extends Controller
 {
-    public function showForm($id=''){
+    public function showForm(Request $req,$id=''){
         if($id>0)
         {
             $arr=Product::where(['id'=>$id])->get();
@@ -42,6 +42,15 @@ class ProductController extends Controller
         $result['categories']=DB::table('categories')->where(['category_status'=>1])->get();
         $result['brands']=DB::table('brands')->where(['brand_status'=>1])->get();
 
+        if($req->cookie('ADMIN_LOGGED'))
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->cookie('ADMIN_LOGGED')])->get();
+        }
+        else
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->session('ADMIN_LOGGED')])->get();
+        } 
+        
         return view('admin.manageProduct',$result);
     }
 
@@ -106,10 +115,20 @@ class ProductController extends Controller
 
     
 
-    public function listProduct()
+    public function listProduct(Request $req)
     {
-        $result['data']=Product::all();
+        $result['data']=Product::join('brands', 'brands.id', '=', 'products.brand_id')
+                                ->join('categories', 'categories.id', '=', 'products.category_id')
+                                ->get(['products.*', 'brands.brand_name','categories.category_title']);
 
+        if($req->cookie('ADMIN_LOGGED'))
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->cookie('ADMIN_LOGGED')])->get();
+        }
+        else
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->session('ADMIN_LOGGED')])->get();
+        }
         return view('admin.listProduct',$result);
     }
 

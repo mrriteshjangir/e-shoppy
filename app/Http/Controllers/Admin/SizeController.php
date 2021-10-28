@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 
 use App\Models\Size;
 
+use Illuminate\Support\Facades\DB;
+
 class SizeController extends Controller
 {
-    public function showForm($id=''){
+    public function showForm(Request $req,$id=''){
         if($id>0)
         {
             $arr=Size::where(['id'=>$id])->get();
@@ -27,6 +29,15 @@ class SizeController extends Controller
             $result['id']=0;
         }
 
+        if($req->cookie('ADMIN_LOGGED'))
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->cookie('ADMIN_LOGGED')])->get();
+        }
+        else
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->session('ADMIN_LOGGED')])->get();
+        } 
+        
         return view('admin.manageSize',$result);
     }
 
@@ -61,9 +72,18 @@ class SizeController extends Controller
         return back()->withInput($request->only('size_title','size_unit','size_value'));
     }
 
-    public function listSize()
+    public function listSize(Request $req)
     {
         $result['data']=Size::all();
+
+        if($req->cookie('ADMIN_LOGGED'))
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->cookie('ADMIN_LOGGED')])->get();
+        }
+        else
+        {
+            $result['admin']=DB::table('admins')->where(['id'=>$req->session('ADMIN_LOGGED')])->get();
+        }
 
         return view('admin.listSize',$result);
     }

@@ -26,6 +26,11 @@
 	<script type="text/javascript" src="{{ asset('backend/js/plugins/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('backend/js/plugins/bootstrap-notify.min.js') }}"></script>
 
+    <!-- Data table plugin-->
+    <script type="text/javascript" src="{{ asset('backend/js/plugins/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('backend/js/plugins/dataTables.bootstrap.min.js') }}"></script>
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+
     <script type="text/javascript">
 		// $('#sl').click(function () {
 		// 	$('#tl').loadingBtn();
